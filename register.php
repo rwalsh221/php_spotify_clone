@@ -1,43 +1,11 @@
-<?php
+<?php 
+require("includes/classes/Account.php");
 
-function sanitizeFormUsername($inputText) {
-    $inputText = strip_tags($inputText);
-    $inputText = str_replace(" ", "", $inputText);
-    
-    return $inputText;
-}
+$account = new Account();
 
-function sanitizeFormString($inputText) {
-    $inputText = strip_tags($inputText);
-    $inputText = str_replace(" ", "", $inputText);
-    $inputText = ucfirst(strtolower($inputText));
+require("includes/handlers/registerHandler.php");
+require("includes/handlers/loginHandler.php");
 
-    return $inputText;
-}
-
-function sanitizeFormPassword($inputText) {
-    $inputText = strip_tags($inputText);
-
-    return $inputText;
-}
-
-if(isset($_POST['login-button'])) {
-    //login button pressed
-}
-
-if (isset($_POST['register-button'])) {
-    // register button pressed
-    $registerUsername = sanitizeFormUsername($_POST['register-username']);
-
-    $registerFirstName = sanitizeFormString($_POST['register-firstname']);
-    $registerLastName = sanitizeFormString($_POST['register-lastname']);
-    $registerEmail = sanitizeFormString($_POST['register-email']);
-    $registerConfirmEmail = sanitizeFormString($_POST['register-confirm-email']);
-    
-    $registerPassword = sanitizeFormPassword($_POST['register-password']);
-    $registerConfirmPassword = sanitizeFormPassword($_POST['register-confirm-password']);
-
-}
 ?>
 
 <!DOCTYPE html>
@@ -63,27 +31,43 @@ if (isset($_POST['register-button'])) {
     <!-- REGISTER FORM -->
         <form id="register-form" action="register.php" method="post">
             <h2>Create your account</h2>
-            <label for="register-username">Username</label>
-            <input type="text" name="register-username" id="register-username" placeholder="Username" required><br>
+            <div>
+                <?php echo $account->getError("Your Username must be between 5 and 25 characters"); ?>
+                <label for="register-username">Username</label>
+                <input type="text" name="register-username" id="register-username" placeholder="Username" required>
+            </div>
+            <div>
+                <?php echo $account->getError("Your first name must be between 2 and 25 characters"); ?>
+                <label for="register-firstname">First Name</label>
+                <input type="text" name="register-firstname" id="register-firstname" placeholder="First Name" required>
+            </div>
+            <div> 
+                <?php echo $account->getError("Your last name must be between 2 and 25 characters"); ?>
+                <label for="register-lastname">Last Name</label>
+                <input type="text" name="register-lastname" id="register-lastname" placeholder="Last Name" required>
+            </div>
+            <div>                
+                <?php echo $account->getError("Your Emails do not match"); ?>
+                <?php echo $account->getError("Email is invalid"); ?>
+                <label for="register-email">Email</label>
+                <input type="email" name="register-email" id="register-email" placeholder="Email" required>
+            </div>
+            <div> 
+                <label for="register-confirm-email">Confirm Email</label>
+                <input type="email" name="register-confirm-email" id="register-confirm-email" placeholder="Confirm Email" required>
+            </div>
+            <div>
+                <?php echo $account->getError("Your Passwords do not match"); ?>
+                <?php echo $account->getError("Your Passwords can only contain number and letters"); ?>
+                <?php echo $account->getError("Your password must be between 5 and 30 characters"); ?>
+                <label for="register-password">Password</label>
+                <input type="password" name="register-password" id="register-password" required>
+            </div>
+            <div>
+                <label for="register-confirm-password">Confirm Password</label>
+                <input type="password" name="register-confirm-password" id="register-confirm-password" required>
+            </div>
             
-            <label for="register-firstname">First Name</label>
-            <input type="text" name="register-firstname" id="register-firstname" placeholder="First Name" required><br>
-            
-            <label for="register-lastname">Last Name</label>
-            <input type="text" name="register-lastname" id="register-lastname" placeholder="Last Name" required><br>
-            
-            <label for="register-email">Email</label>
-            <input type="email" name="register-email" id="register-email" placeholder="Email" required><br>
-
-            <label for="register-confirm-email">Confirm Email</label>
-            <input type="email" name="register-confirm-email" id="register-confirm-email" placeholder="Confirm Email" required><br>
-
-            <label for="register-password">Password</label>
-            <input type="password" name="register-password" id="register-password" required><br>
-
-            <label for="register-confirm-password">Confirm Password</label>
-            <input type="password" name="register-confirm-password" id="register-confirm-password" required><br>
-
             <button type="submit" name="register-button">Sign Up</button>
         </form>
     </div>
