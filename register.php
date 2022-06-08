@@ -1,10 +1,17 @@
 <?php 
 require("includes/classes/Account.php");
+require("includes/classes/Constants.php");
 
 $account = new Account();
 
 require("includes/handlers/registerHandler.php");
 require("includes/handlers/loginHandler.php");
+
+function getFormFieldValue($name) {
+    if (isset($_POST[$name])) {
+        echo $_POST[$name];
+    }
+}
 
 ?>
 
@@ -32,40 +39,40 @@ require("includes/handlers/loginHandler.php");
         <form id="register-form" action="register.php" method="post">
             <h2>Create your account</h2>
             <div>
-                <?php echo $account->getError("Your Username must be between 5 and 25 characters"); ?>
+                <?php echo $account->getError(Constants::$userNameLengthError); ?>
                 <label for="register-username">Username</label>
-                <input type="text" name="register-username" id="register-username" placeholder="Username" required>
+                <input type="text" name="register-username" id="register-username" placeholder="Username" value="<?php getFormFieldValue('register-username') ?>" required>
             </div>
             <div>
-                <?php echo $account->getError("Your first name must be between 2 and 25 characters"); ?>
+                <?php echo $account->getError(Constants::$firstNameLengthError); ?>
                 <label for="register-firstname">First Name</label>
-                <input type="text" name="register-firstname" id="register-firstname" placeholder="First Name" required>
+                <input type="text" name="register-firstname" id="register-firstname" placeholder="First Name" value="<?php getFormFieldValue('register-firstname') ?>" required>
             </div>
             <div> 
-                <?php echo $account->getError("Your last name must be between 2 and 25 characters"); ?>
+                <?php echo $account->getError(Constants::$lastNameLengthError); ?>
                 <label for="register-lastname">Last Name</label>
-                <input type="text" name="register-lastname" id="register-lastname" placeholder="Last Name" required>
+                <input type="text" name="register-lastname" id="register-lastname" placeholder="Last Name" value="<?php getFormFieldValue('register-lastname') ?>" required>
             </div>
             <div>                
-                <?php echo $account->getError("Your Emails do not match"); ?>
-                <?php echo $account->getError("Email is invalid"); ?>
+                <?php echo $account->getError(Constants::$emailsDoNotMatch); ?>
+                <?php echo $account->getError(Constants::$emailInvalid); ?>
                 <label for="register-email">Email</label>
-                <input type="email" name="register-email" id="register-email" placeholder="Email" required>
+                <input type="email" name="register-email" id="register-email" placeholder="Email" value="<?php getFormFieldValue('register-email') ?>" required>
             </div>
             <div> 
                 <label for="register-confirm-email">Confirm Email</label>
-                <input type="email" name="register-confirm-email" id="register-confirm-email" placeholder="Confirm Email" required>
+                <input type="email" name="register-confirm-email" id="register-confirm-email" placeholder="Confirm Email" value="<?php getFormFieldValue('register-confirm-email') ?>" required>
             </div>
             <div>
-                <?php echo $account->getError("Your Passwords do not match"); ?>
-                <?php echo $account->getError("Your Passwords can only contain number and letters"); ?>
-                <?php echo $account->getError("Your password must be between 5 and 30 characters"); ?>
+                <?php echo $account->getError(Constants::$passwordsDoNotMatch); ?>
+                <?php echo $account->getError(Constants::$passwordNotAlphaNumeric); ?>
+                <?php echo $account->getError(Constants::$passwordLengthError); ?>
                 <label for="register-password">Password</label>
-                <input type="password" name="register-password" id="register-password" required>
+                <input type="password" name="register-password" id="register-password" value="<?php getFormFieldValue('register-password') ?>" required>
             </div>
             <div>
                 <label for="register-confirm-password">Confirm Password</label>
-                <input type="password" name="register-confirm-password" id="register-confirm-password" required>
+                <input type="password" name="register-confirm-password" id="register-confirm-password" value="<?php getFormFieldValue('register-confirm-password') ?>" required>
             </div>
             
             <button type="submit" name="register-button">Sign Up</button>
