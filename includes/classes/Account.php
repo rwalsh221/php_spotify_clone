@@ -11,6 +11,20 @@ class Account {
         $this->errorArray = array();
     }
 
+    public function login($loginUsername, $loginPassword) {
+        $loginPassword = md5($loginPassword);
+
+        $loginQuery = mysqli_query($this->dBConnection, "SELECT * FROM users WHERE userName='$loginUsername' AND password='$loginPassword'");
+
+        if(mysqli_num_rows($loginQuery) === 1) {
+            return true;
+        } else {
+            array_push($this->errorArray, Constants::$loginFailed);
+            return false;
+        }
+
+    }
+
     public function register($registerUsername,
     $registerFirstName,
     $registerLastName,
@@ -72,8 +86,12 @@ class Account {
             return;
         } 
         
-        // TODO: check if username exists
+        $checkUserNameExists = mysqli_query($this->dBConnection, "SELECT userName FROM users WHERE userName='$username'");
        
+        if(mysqli_num_rows($checkUserNameExists) !== 0) {
+            array_push($this->errorArray, Constants::$usernameTaken);
+            return;
+        }
     }
 
     private function validateFirstName($firstName) {
@@ -101,7 +119,12 @@ class Account {
             return;
         }
 
-        // TODO: check that email is already been used
+        $checkEmailExists = mysqli_query($this->dBConnection, "SELECT email FROM users WHERE email='$email'");
+       
+        if(mysqli_num_rows($checkEmailExists) !== 0) {
+            array_push($this->errorArray, Constants::$emailTaken);
+            return;
+        }
     }
 
     private function validatePassword($password, $confirmPassword) {

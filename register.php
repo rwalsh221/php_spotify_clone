@@ -31,6 +31,7 @@ function getFormFieldValue($name) {
     <div id="inputContainer">
         <form id="login-form" action="register.php" method="post">
             <h2>Login to your account</h2>
+            <?php echo $account->getError(Constants::$loginFailed); ?>
             <label for="login-username">Username</label>
             <input type="text" name="login-username" id="login-username" placeholder="username" required><br>
             <label for="login-password">Password</label>
@@ -43,6 +44,7 @@ function getFormFieldValue($name) {
             <h2>Create your account</h2>
             <div>
                 <?php echo $account->getError(Constants::$userNameLengthError); ?>
+                <?php echo $account->getError(Constants::$usernameTaken); ?>
                 <label for="register-username">Username</label>
                 <input type="text" name="register-username" id="register-username" placeholder="Username" value="<?php getFormFieldValue('register-username') ?>" required>
             </div>
@@ -59,6 +61,7 @@ function getFormFieldValue($name) {
             <div>                
                 <?php echo $account->getError(Constants::$emailsDoNotMatch); ?>
                 <?php echo $account->getError(Constants::$emailInvalid); ?>
+                <?php echo $account->getError(Constants::$emailTaken); ?>
                 <label for="register-email">Email</label>
                 <input type="email" name="register-email" id="register-email" placeholder="Email" value="<?php getFormFieldValue('register-email') ?>" required>
             </div>
