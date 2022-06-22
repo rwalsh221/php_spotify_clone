@@ -1,8 +1,9 @@
 <?php 
+require("includes/config.php");
 require("includes/classes/Account.php");
 require("includes/classes/Constants.php");
 
-$account = new Account();
+$account = new Account($dBConnection);
 
 require("includes/handlers/registerHandler.php");
 require("includes/handlers/loginHandler.php");
@@ -12,6 +13,8 @@ function getFormFieldValue($name) {
         echo $_POST[$name];
     }
 }
+
+
 
 ?>
 

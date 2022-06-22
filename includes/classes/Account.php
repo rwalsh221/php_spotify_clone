@@ -2,10 +2,12 @@
 
 class Account {
 
+    private $dBConnection;
     private $errorArray;
 
-    public function __construct()
+    public function __construct($dBConnection)
     {
+        $this->dBConnection = $dBConnection;
         $this->errorArray = array();
     }
 
@@ -21,10 +23,14 @@ class Account {
         $this->validateLastName($registerLastName);
         $this->validateEmail($registerEmail, $registerConfirmEmail);
         $this->validatePassword($registerPassword, $registerConfirmPassword);
-    
+        echo var_dump($this->errorArray);
         if(empty($this->errorArray)) {
             // insert into db
-            return true;
+            return $this->insertUserDetails($registerUsername,
+            $registerFirstName,
+            $registerLastName,
+            $registerEmail,
+            $registerPassword);
         } else {
             return false;
         }
@@ -37,6 +43,27 @@ class Account {
       
         return "<span class='error-message'>$error</span>";
     }
+
+    private function insertUserDetails($registerUsername,
+    $registerFirstName,
+    $registerLastName,
+    $registerEmail,
+    $registerPassword) {
+        $encryptedPassword = md5($registerPassword);
+        $profilePicture = "assets/images/profilePics/head_emerald.png";
+        $date = date("Y-m-d");
+
+        $result = mysqli_query($this->dBConnection, "INSERT INTO users VALUES (NULL, '$registerUsername',
+        '$registerFirstName',
+        '$registerLastName',
+        '$registerEmail', '$encryptedPassword', '$date', '$profilePicture')");
+
+        echo "Error: " . mysqli_error($this->dBConnection);
+        return $result;
+
+    }
+
+    
 
     // VALIDATE FORM INPUT
     private function validateUserName($username) {
