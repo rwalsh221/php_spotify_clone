@@ -51,11 +51,12 @@ class Account {
     }
 
     public function getError($error) {
+        
         if(!in_array($error, $this->errorArray)) {
             $error = '';
         }
       
-        return "<span class='error-message'>$error</span>";
+        return "<span class='error-message fade-in'>$error</span>";
     }
 
     private function insertUserDetails($registerUsername,

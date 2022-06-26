@@ -2,23 +2,21 @@
   background-image: url(../images/background.jpg);
   background-position: center;
   background-size: cover;
-  height: 100%;
   min-height: 100vh;
-  /* padding: 5rem; */
+  position: relative;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .content-wrapper {
   position: relative;
-  width: 80%;
-  /* min-height: 80%; */
   display: flex;
-  height: 80%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   justify-content: center;
   align-items: center;
-  /* background-color: hotpink; */
+  margin: 0.5rem;
+  max-width: 1024px;
 }
 
 .content-container {
@@ -63,25 +61,24 @@
   font-size: 3rem;
   flex-basis: 45%;
   border-right: 1px solid black;
-  max-width: 1024px;
-  height: 80%;
   padding: 2rem;
 }
 
-.input-container {
-  /* height: max-content; */
-  min-height: 80%;
+.form-container {
   color: hsl(0, 0%, 77%);
 }
 
-.input-container form div {
-  height: min-content;
+.form-container form div {
   padding: 0.1rem;
   margin-bottom: 0.5rem;
 }
 
-.input-container input,
-.input-container form div input::placeholder {
+.form-container input,
+.form-container input::placeholder {
+  color: white;
+}
+
+.form-container input {
   display: block;
   background-color: transparent;
   margin-top: 0.5rem;
@@ -89,11 +86,10 @@
   border-bottom: 1px solid white;
   width: 100%;
   height: 3rem;
-  color: white;
 }
 
 .heading__primary {
-  font-size: 9rem;
+  font-size: 7rem;
   font-weight: bold;
   color: green;
 }
@@ -136,6 +132,14 @@
 
 .fade-in {
   animation: fade-in 0.5s forwards;
+}
+
+.error-message {
+  color: green;
+  display: block;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0.5rem 0;
 }
 
 @keyframes fade-in {

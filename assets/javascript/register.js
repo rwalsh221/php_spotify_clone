@@ -17,5 +17,3 @@ const hideRegistrationForm = () => {
 
 elements.showRegistrationForm.addEventListener('click', showRegistrationForm);
 elements.hideRegistrationForm.addEventListener('click', hideRegistrationForm);
-
-export { showRegistrationForm, hideRegistrationForm };

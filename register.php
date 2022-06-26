@@ -13,9 +13,6 @@ function getFormFieldValue($name) {
         echo $_POST[$name];
     }
 }
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -26,21 +23,20 @@ function getFormFieldValue($name) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css"> 
     <link rel="stylesheet" type="text/css" href="assets/css/register.css">
-    <script src="assets/javascript/register.js" type="module" defer></script> 
+    <script src="assets/javascript/register.js" defer></script> 
     <title>Welcome to Slotify</title>
 </head>
 <body>
-    <main class="main">
+    <section class="main">
         <div class='content-wrapper'>
             <div class="form-container">
                 <!-- LOGIN FORM -->
-                <div id="inputContainer" class="input-container">
                     <form id="login-form" action="register.php" method="post" data-form="login" class="fade-in">
                         <h2 class="heading__secondary">Login to your account</h2>
                         <div>
-                            <?php // TODO: echo $account->getError(Constants::$loginFailed); ?> 
+                            <?php echo $account->getError(Constants::$loginFailed); ?> 
                             <label for="login-username">Username</label>
-                            <input type="text" name="login-username" id="login-username" placeholder="username" required>
+                            <input type="text" name="login-username" id="login-username" placeholder="username" value="<?php getFormFieldValue('login-username') ?>" required>
                         </div>
                         <div>
                             <label for="login-password">Password</label>
@@ -102,7 +98,7 @@ function getFormFieldValue($name) {
                             <p data-register="hide">Already have an account? Log in here</p>
                         </div>
                     </form>
-                </div>
+                
             </div>
 
             <div class="content-container">
@@ -115,9 +111,7 @@ function getFormFieldValue($name) {
                 </ul>
             </div>
         </div>
-        
-        
-    </main>
+    </section>
     
     <?php 
     if(isset($_POST['register-button'])) {
