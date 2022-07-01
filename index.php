@@ -28,12 +28,12 @@ if(isset($_SESSION['userLoggedIn'])) {
             <nav class="nav-bar">
                 <ul>
                     <li class="nav-logo"><a href="/"><ion-icon name="radio-sharp"></ion-icon></a></li>
-                    <li class="nav-search">
+                    <li class="nav-search-form">
                         <form id="nav-form" action="index.php" method="post">
-                            <div class="nav-form__container">
+                            <div class="nav-search-form__container">
                                 <label for="nav-search"></label>
                                 <input type="text" placeholder="Search" name="nav-search">
-                                <button type="submit" id="nav-search__btn"><ion-icon name="search-outline"></ion-icon></button>
+                                <button type="submit" id="nav-search__btn"><span class="nav-search-form__icon"><ion-icon name="search-outline"></ion-icon></span></button>
                             </div>
                         </form>
                     </li>

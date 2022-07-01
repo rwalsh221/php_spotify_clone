@@ -71,7 +71,7 @@ select:-webkit-autofill:focus {
   grid-template-areas:
     'nav main'
     'player player';
-  grid-template-columns: minmax(10vw, max-content) auto;
+  grid-template-columns: 15vw 85vw;
   grid-template-rows: minmax(85vh, max-content) minmax(15vh, max-content);
 }
 
@@ -242,11 +242,11 @@ select:-webkit-autofill:focus {
 
   padding: 2rem;
   text-transform: capitalize;
+  width: 100%;
 }
 
 .nav-bar {
-  /* width: max-content; */
-  /* overflow: hidden; */
+  width: 100%;
 }
 
 .nav-bar ul {
@@ -254,19 +254,17 @@ select:-webkit-autofill:focus {
   font-size: 1.5rem;
   font-weight: bold;
   color: whitesmoke;
-  /* width: max-content; */
-  /* width: 100%; */
+  width: 100%;
 }
 
 .nav-bar ul li {
   margin: 2rem 0;
-  /* width: max-content; */
 }
 
-.nav-logo,
-.nav-search {
+.nav-search-form {
+  border-top: 1px solid whitesmoke;
   border-bottom: 1px solid whitesmoke;
-  padding-bottom: 1rem;
+  padding: 1rem 0;
 }
 
 .nav-logo ion-icon {
@@ -274,31 +272,43 @@ select:-webkit-autofill:focus {
   font-size: 4rem;
 }
 
-.nav-form__container {
+.nav-search-form__container {
   display: flex;
+  width: 100%;
 }
 
-.nav-form__container input {
-  /* width: 60%; */
+.nav-search-form__container input {
   background-color: black;
-  /* display: inline-block; */
-  /* margin-right: auto; */
+
   border: none;
   font-size: 2rem;
   color: whitesmoke;
+  width: 80%;
 }
 
-.nav-form__container label {
+.nav-search-form__container label {
   display: none;
 }
 
-.nav-form__container button {
-  /* width: 20%; */
+.nav-search-form__container button {
   font-size: 4rem;
   background-color: inherit;
   color: whitesmoke;
   border: none;
   cursor: pointer;
+}
+
+.nav-search-form__icon {
+  display: inline-block;
+}
+
+.nav-search-form__icon ion-icon {
+  vertical-align: -10%;
+  font-size: 3.5rem;
+}
+
+.nav-link a:hover {
+  color: green;
 }
 
 /* MAIN CONTENT **************************************************************************************************** */
