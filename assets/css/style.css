@@ -71,8 +71,16 @@ select:-webkit-autofill:focus {
   grid-template-areas:
     'nav main'
     'player player';
-  grid-template-columns: 15vw 85vw;
+  grid-template-columns: minmax(25rem, 15vw) 85vw;
   grid-template-rows: minmax(85vh, max-content) minmax(15vh, max-content);
+  background-color: #181818;
+  min-width: 720px;
+}
+
+.heading__primary {
+  font-size: 6rem;
+  font-weight: bold;
+  color: green;
 }
 
 /* NOW PLAYING BAR ******************************************* */
@@ -313,7 +321,6 @@ select:-webkit-autofill:focus {
 
 /* MAIN CONTENT **************************************************************************************************** */
 .main-content {
-  background-color: greenyellow;
   grid-area: main;
   padding: 2rem;
 }
