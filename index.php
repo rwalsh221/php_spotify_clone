@@ -35,8 +35,10 @@ if(isset($_SESSION['userLoggedIn'])) {
                 
                 while($dbRow = mysqli_fetch_array($albumQuery)) {
                     echo "<div class='album-card'>
-                            <img class='album-image' src='" . $dbRow['artworkPath'] . "'>
-                            <p class='album-title'>" . $dbRow['title'] . "</p>
+                            <a href='album.php?id=" . $dbRow['id'] . "'>
+                                <img class='album-image' src='" . $dbRow['artworkPath'] . "'>
+                                <p class='album-title'>" . $dbRow['title'] . "</p>
+                            </a>
                         </div>";
                 }
             ?>
