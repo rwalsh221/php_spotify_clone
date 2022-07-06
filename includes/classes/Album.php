@@ -39,6 +39,11 @@ class Album {
         return $this->artworkPath;
     }
 
+    public function getNumberOfSongs() {
+        $query = mysqli_query($this->dBConnection, "SELECT * FROM songs WHERE album='$this->id'");
+        return mysqli_num_rows($query);
+    }
+
     
 }
 ?>
