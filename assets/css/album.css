@@ -1,0 +1,124 @@
+.album-content {
+  grid-area: main;
+  display: flex;
+  width: 100%;
+  padding: 2rem;
+  color: gray;
+  flex-direction: column;
+}
+
+.album-container {
+  display: flex;
+  justify-content: flex-start;
+  height: max-content;
+}
+
+.album-container__img img {
+  height: 30rem;
+  width: 30rem;
+  object-fit: cover;
+  margin: 1rem 0;
+}
+
+.album-container__info {
+  margin: 2rem;
+}
+
+.album-container__info h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+}
+
+.album-container__info p {
+  font-size: 1.5rem;
+
+  line-height: 3rem;
+}
+
+.album-container__info p:first-of-type {
+  text-transform: capitalize;
+}
+
+.tracklist-container {
+  flex: 0 0 100%;
+  font-size: 1.5rem;
+  text-transform: capitalize;
+}
+
+.tracklist-container ul {
+  list-style: none;
+}
+
+.tracklist-container li {
+  display: flex;
+  justify-content: left;
+  padding: 1rem 0;
+  margin: 1rem 0;
+  transition: all 0.5s;
+  align-items: center;
+}
+
+.tracklist-container li:hover {
+  background-color: rgb(84, 97, 83);
+}
+
+.tracklist-container__track-info {
+  width: 60%;
+  margin-left: 5rem;
+  margin-top: 1.5rem;
+}
+
+.tracklist-container__track-title {
+  font-weight: bold;
+  color: white;
+}
+
+.tracklist-container__track-count {
+  min-width: 2rem;
+}
+
+.tracklist-container__track-count--play {
+  display: none;
+  vertical-align: middle;
+}
+
+.tracklist-container li:hover .tracklist-container__track-options {
+  display: block;
+}
+
+.tracklist-container li:hover .tracklist-container__track-count--play {
+  display: block;
+  animation: fadeIn 0.5s;
+}
+
+.tracklist-container li:hover .tracklist-container__track-count--count {
+  opacity: 0;
+  display: none;
+}
+
+.tracklist-container__track-count--count::after {
+  content: '.';
+}
+
+.tracklist-container__track-options,
+.tracklist-container__track-duration {
+  margin: 0 2rem 0 auto;
+}
+
+.tracklist-container__track-options {
+  display: none;
+  font-size: 2rem;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
