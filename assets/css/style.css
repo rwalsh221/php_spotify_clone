@@ -174,8 +174,13 @@ select:-webkit-autofill:focus {
   font-weight: bold;
 }
 
-.button-play {
+.button-play,
+.button-pause {
   font-size: 5rem;
+}
+
+.button-pause {
+  display: none;
 }
 
 /* NOW PLAYING BAR LEFT/RIGHT */

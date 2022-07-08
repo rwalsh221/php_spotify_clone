@@ -9,6 +9,9 @@ class Audio {
   playSong() {
     this.audioHtmlElement.play();
   }
+  pauseSong() {
+    this.audioHtmlElement.pause();
+  }
 }
 
 // const audioElement = new Audio();

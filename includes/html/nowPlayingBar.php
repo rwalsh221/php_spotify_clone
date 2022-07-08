@@ -7,7 +7,7 @@
     }
 
     $jsonArray = json_encode($resultArray);
-    var_dump($jsonArray);
+   
 ?>
 
 <script>
@@ -15,12 +15,24 @@
         audioElement.setTrack("assets/music/music_0.mp3")
 
         if(play) {
-        document.body.addEventListener('mousemove', function () {
-        audioElement.playSong();
-    });
+            document.body.addEventListener('mousemove', function () {
+            audioElement.playSong();
+            });
         }
-        
+    } 
+
+    const playSong = () => {
+        document.querySelector('[data-button="pause"]').style.display = 'block'
+        document.querySelector('[data-button="play"]').style.display = 'none'
+        audioElement.playSong()
     }
+
+    const pauseSong = () => {
+        document.querySelector('[data-button="pause"]').style.display = 'none'
+        document.querySelector('[data-button="play"]').style.display = 'block'
+        audioElement.pauseSong()
+    }
+
     // EVENET LISTNER WHEN PAGE IS LOADED
     document.addEventListener("DOMContentLoaded", function(event) {
     currentPlaylist = <?php echo $jsonArray ?>;
@@ -45,7 +57,8 @@
         <div class="now-playing-bar__controls">
             <button class="now-playing-bar__button" title="Shuffle"><ion-icon name="shuffle-outline"></ion-icon></ion-icon></button>
             <button class="now-playing-bar__button" title="Skip back"><ion-icon name="play-skip-back"></ion-icon></button>
-            <button class="now-playing-bar__button button-play" title="Play"><ion-icon name="play-circle-outline"></ion-icon></button>
+            <button class="now-playing-bar__button button-play" data-button='play' title="Play" onclick="playSong()"><ion-icon name="play-circle-outline"></ion-icon></button>
+            <button class="now-playing-bar__button button-pause" data-button='pause' title="Pause" onclick="pauseSong()"><ion-icon name="pause-circle-outline"></ion-icon></button>
             <button class="now-playing-bar__button" title="Skip forward"><ion-icon name="play-skip-forward"></ion-icon></button>
             <button class="now-playing-bar__button" title="Repeat"><ion-icon name="repeat-outline"></ion-icon></button>
         </div>
