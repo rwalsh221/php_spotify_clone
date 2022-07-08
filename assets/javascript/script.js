@@ -6,6 +6,9 @@ class Audio {
   setTrack(src) {
     this.audioHtmlElement.src = src;
   }
+  playSong() {
+    this.audioHtmlElement.play();
+  }
 }
 
 // const audioElement = new Audio();

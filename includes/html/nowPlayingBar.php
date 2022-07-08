@@ -11,16 +11,23 @@
 ?>
 
 <script>
-    const setTrack = (trackId, newPlaylist, play) => {
+    const setTrack = (audioElement, trackId, newPlaylist, play) => {
+        audioElement.setTrack("assets/music/music_0.mp3")
 
+        if(play) {
+        document.body.addEventListener('mousemove', function () {
+        audioElement.playSong();
+    });
+        }
+        
     }
-
+    // EVENET LISTNER WHEN PAGE IS LOADED
     document.addEventListener("DOMContentLoaded", function(event) {
     currentPlaylist = <?php echo $jsonArray ?>;
     console.log(currentPlaylist)
     audioElement = new Audio();
     
-    setTrack(currentPlaylist[0], currentPlaylist, false)
+    setTrack(audioElement,currentPlaylist[0], currentPlaylist, false)
 });
 </script>
 
