@@ -12,12 +12,13 @@
 
 <script>
     const setTrack = (audioElement, trackId, newPlaylist, play) => {
-        audioElement.setTrack("assets/music/music_0.mp3")
+        
 
         if(play) {
-            document.body.addEventListener('mousemove', function () {
-            audioElement.playSong();
-            });
+            audioElement.setTrack("assets/music/music_0.mp3")
+            // document.body.addEventListener('mousemove', function () {
+            // audioElement.playSong();
+            // });
         }
     } 
 
@@ -39,7 +40,7 @@
     console.log(currentPlaylist)
     audioElement = new Audio();
     
-    setTrack(audioElement,currentPlaylist[0], currentPlaylist, false)
+    setTrack(audioElement,currentPlaylist[0], currentPlaylist, true)
 });
 </script>
 
