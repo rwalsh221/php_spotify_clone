@@ -1,3 +1,29 @@
+<?php 
+    $songQuery = mysqli_query($dBConnection, "SELECT id FROM songs ORDER BY RAND() LIMIT 10");
+    $resultArray = array();
+    
+    while($row = mysqli_fetch_array($songQuery)) {
+        array_push($resultArray, $row['id']);
+    }
+
+    $jsonArray = json_encode($resultArray);
+    var_dump($jsonArray);
+?>
+
+<script>
+    const setTrack = (trackId, newPlaylist, play) => {
+
+    }
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+    currentPlaylist = <?php echo $jsonArray ?>;
+    console.log(currentPlaylist)
+    audioElement = new Audio();
+    
+    setTrack(currentPlaylist[0], currentPlaylist, false)
+});
+</script>
+
 <div class="now-playing-bar">
     <div class="now-playing-bar__left">
         <div class="now-playing__img">

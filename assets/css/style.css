@@ -7,6 +7,10 @@
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+* {
+  /* border: 1px solid red; */
+}
+
 body,
 h1,
 h2,
@@ -71,7 +75,7 @@ select:-webkit-autofill:focus {
   grid-template-areas:
     'nav main'
     'player player';
-  grid-template-columns: minmax(25rem, 15vw) 85vw;
+  grid-template-columns: minmax(25rem, 15vw) auto;
   grid-template-rows: minmax(85vh, max-content) minmax(15vh, max-content);
   background-color: #181818;
   min-width: 720px;

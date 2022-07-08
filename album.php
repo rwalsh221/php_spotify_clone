@@ -68,7 +68,10 @@ if (isset($_GET['id'])) {
                                 $songArtist = $albumSong->getArtist();
                                 
                                 echo "<li>
-                                        <div class='tracklist-container__track-count'><span class='tracklist-container__track-count--play'><ion-icon name='play'></ion-icon></span><span class='tracklist-container__track-count--count'>$songCount</span></div>
+                                        <div class='tracklist-container__track-count'>
+                                            <span class='tracklist-container__track-count--play'><ion-icon name='play'></ion-icon></span>
+                                            <span class='tracklist-container__track-count--count'>$songCount</span>
+                                        </div>
                                         <div class='tracklist-container__track-info'>
                                             <div class='tracklist-container__track-title'>" . $albumSong->getSongTitle() . "</div>
                                             <div class='tracklist-container__track-artist'>" . $songArtist->getName() ."</div>
@@ -90,5 +93,6 @@ if (isset($_GET['id'])) {
     </main>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script  src="./assets/javascript/script.js"></script>
 </body>
 </html>
