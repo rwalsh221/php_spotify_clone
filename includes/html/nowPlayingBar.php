@@ -11,14 +11,26 @@
 ?>
 
 <script>
-    const setTrack = (audioElement, trackId, newPlaylist, play) => {
-        
 
+    
+
+    const setTrack = (audioElement, trackId, newPlaylist, play) => {
+        console.log(trackId)
         if(play) {
-            audioElement.setTrack("assets/music/music_0.mp3")
-            // document.body.addEventListener('mousemove', function () {
-            // audioElement.playSong();
-            // });
+
+            const data = {
+                songId: trackId
+            }
+
+            fetch('includes/ajax/getSong.php', {
+                method: 'POST',
+                body: JSON.stringify(data),
+            })
+            .then(res=>res.json())
+            .then(text => console.log(text))
+            .catch(error => console.error('problem', error))
+
+            audioElement.setTrack("assets/music/music_0.mp3");
         }
     } 
 
