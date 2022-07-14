@@ -12,25 +12,86 @@
 
 <script>
 
-    
+    const getSongAjax = async (trackId) => {
 
-    const setTrack = (audioElement, trackId, newPlaylist, play) => {
-        console.log(trackId)
-        if(play) {
-
+        try {
             const data = {
                 songId: trackId
             }
 
-            fetch('includes/ajax/getSong.php', {
+            const song = await fetch('includes/ajax/getSongJson.php', {
                 method: 'POST',
-                body: JSON.stringify(data),
+                body: JSON.stringify({songId: trackId}),
             })
-            .then(res=>res.json())
-            .then(text => console.log(text))
-            .catch(error => console.error('problem', error))
 
-            audioElement.setTrack("assets/music/music_0.mp3");
+            const songJson = await song.json()
+
+            
+
+            const artist = await fetch('includes/ajax/getArtistJson.php', {
+                method: 'POST',
+                body: JSON.stringify({artistId: songJson.artist}),
+            })
+
+            
+
+            const artistJson = await artist.json();
+
+           
+
+            const album = await fetch('includes/ajax/getAlbumJson.php', {
+                method: 'POST',
+                body: JSON.stringify({albumId: songJson.album}),
+            })
+
+            
+
+            const albumJson = await album.json();
+
+            console.log(albumJson)
+
+            document.querySelector('[data-nowPlaying="song-title"]').textContent = songJson.title;
+            document.querySelector('[data-nowPlaying="song-artist"]').textContent = artistJson.name;
+            document.querySelector('[data-nowPlaying="song-album-art"]').src = albumJson.artworkPath;
+            audioElement.setTrack(`${songJson.path}.mp3`);
+
+            // fetch('includes/ajax/getSong.php', {
+            //     method: 'POST',
+            //     body: JSON.stringify(data),
+            // })
+            // .then(res=>res.json())
+            // .then(response => {
+            //     console.log(response)
+            //     document.querySelector('[data-nowPlaying="song-title"]').textContent = response.title;
+            //     audioElement.setTrack(`${response.path}.mp3`);
+            // })
+            
+        
+        } catch {
+
+        }
+
+    }
+
+    const setTrack = (audioElement, trackId, newPlaylist, play) => {
+        if(play) {
+            // const data = {
+            //     songId: trackId
+            // }
+
+            // fetch('includes/ajax/getSong.php', {
+            //     method: 'POST',
+            //     body: JSON.stringify(data),
+            // })
+            // .then(res=>res.json())
+            // .then(response => {
+            //     console.log(response)
+            //     document.querySelector('[data-nowPlaying="song-title"]').textContent = response.title;
+            //     audioElement.setTrack(`${response.path}.mp3`);
+            // })
+            // .catch(error => console.error('problem', error))
+
+            getSongAjax(trackId)
         }
     } 
 
@@ -49,7 +110,6 @@
     // EVENET LISTNER WHEN PAGE IS LOADED
     document.addEventListener("DOMContentLoaded", function(event) {
     currentPlaylist = <?php echo $jsonArray ?>;
-    console.log(currentPlaylist)
     audioElement = new Audio();
     
     setTrack(audioElement,currentPlaylist[0], currentPlaylist, true)
@@ -59,11 +119,11 @@
 <div class="now-playing-bar">
     <div class="now-playing-bar__left">
         <div class="now-playing__img">
-            <img src="./assets//images/now_playing.jpg" alt="now playing">
+            <img data-nowPlaying="song-album-art" src="" alt="now playing">
         </div>
         <div class="now-playing__info">
-            <p class="now-playing__song-title">i want to be adored</p>
-            <p class="now-playing__song-artist">the stone roses</p>
+            <p class="now-playing__song-title" data-nowPlaying="song-title"></p>
+            <p class="now-playing__song-artist" data-nowPlaying="song-artist"></p>
         </div>
     </div>
     <div class="now-playing-bar__center">
