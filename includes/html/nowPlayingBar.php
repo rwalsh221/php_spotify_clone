@@ -15,9 +15,9 @@
     const getSongAjax = async (trackId) => {
 
         try {
-            const data = {
-                songId: trackId
-            }
+            // const data = {
+            //     songId: trackId
+            // }
 
             const song = await fetch('includes/ajax/getSongJson.php', {
                 method: 'POST',
@@ -53,18 +53,8 @@
             document.querySelector('[data-nowPlaying="song-title"]').textContent = songJson.title;
             document.querySelector('[data-nowPlaying="song-artist"]').textContent = artistJson.name;
             document.querySelector('[data-nowPlaying="song-album-art"]').src = albumJson.artworkPath;
-            audioElement.setTrack(`${songJson.path}.mp3`);
-
-            // fetch('includes/ajax/getSong.php', {
-            //     method: 'POST',
-            //     body: JSON.stringify(data),
-            // })
-            // .then(res=>res.json())
-            // .then(response => {
-            //     console.log(response)
-            //     document.querySelector('[data-nowPlaying="song-title"]').textContent = response.title;
-            //     audioElement.setTrack(`${response.path}.mp3`);
-            // })
+            console.log(audioElement)
+            audioElement.setTrack(songJson);
             
         
         } catch {
@@ -96,6 +86,11 @@
     } 
 
     const playSong = () => {
+        // audioHtmlElement from Audio class
+        if (audioElement.audioHtmlElement.currentTime === 0) {
+            updateSongPlayCount()
+        } 
+
         document.querySelector('[data-button="pause"]').style.display = 'block'
         document.querySelector('[data-button="play"]').style.display = 'none'
         audioElement.playSong()
@@ -105,6 +100,19 @@
         document.querySelector('[data-button="pause"]').style.display = 'none'
         document.querySelector('[data-button="play"]').style.display = 'block'
         audioElement.pauseSong()
+    }
+
+    const updateSongPlayCount = async () => {
+        try {
+            const song = await fetch('includes/ajax/updatePlays.php', {
+                method: 'POST',
+                body: JSON.stringify({songId: audioElement.currentlyPlaying.id}),
+            })
+
+        } catch (error) {
+            console.error('song play not updated', error)
+        }
+        
     }
 
     // EVENET LISTNER WHEN PAGE IS LOADED

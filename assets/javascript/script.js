@@ -3,8 +3,9 @@ class Audio {
     this.currentlyPlaying = currentlyPlaying;
   }
   audioHtmlElement = document.createElement('audio');
-  setTrack(src) {
-    this.audioHtmlElement.src = src;
+  setTrack(track) {
+    this.currentlyPlaying = track;
+    this.audioHtmlElement.src = `${track.path}.mp3`;
   }
   playSong() {
     this.audioHtmlElement.play();
