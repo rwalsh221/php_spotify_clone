@@ -150,7 +150,7 @@
                     <div class="progress-bar__foreground"></div>
                 </div>
             </div>
-            <span class="progress-time remaining">0.00</span>
+            <span class="progress-time remaining" data-nowPlaying="progress-time"></span>
         </div>
     </div>
     <div class="now-playing-bar__right">

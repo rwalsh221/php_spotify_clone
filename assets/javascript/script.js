@@ -1,8 +1,13 @@
 class Audio {
   constructor(currentlyPlaying) {
     this.currentlyPlaying = currentlyPlaying;
+    this.audioHtmlElement = document.createElement('audio');
+    this.audioHtmlElement.addEventListener('canplay', () => {
+      document.querySelector('[data-nowPlaying="progress-time"]').textContent =
+        this.formatTime(this.audioHtmlElement.duration);
+    });
   }
-  audioHtmlElement = document.createElement('audio');
+
   setTrack(track) {
     this.currentlyPlaying = track;
     this.audioHtmlElement.src = `${track.path}.mp3`;
@@ -12,6 +17,13 @@ class Audio {
   }
   pauseSong() {
     this.audioHtmlElement.pause();
+  }
+
+  formatTime(songLength) {
+    const time = Math.round(songLength);
+    const minutes = Math.floor(time / 60);
+    const seconds = time - minutes * 60;
+    return seconds < 10 ? `${minutes}:0${seconds}` : `${minutes}:${seconds}`;
   }
 }
 
