@@ -144,13 +144,13 @@
             <button class="now-playing-bar__button" title="Repeat"><ion-icon name="repeat-outline"></ion-icon></button>
         </div>
         <div class="now-playing-bar__progress-bar">
-            <span class="progress-time current">0.00</span>
+            <span class="progress-time current" data-nowPlaying="progress-time-curr">0.00</span>
             <div class="progress-bar">
                 <div class="progress-bar__background">
-                    <div class="progress-bar__foreground"></div>
+                    <div class="progress-bar__foreground" data-nowPlaying="progress-time-bar"></div>
                 </div>
             </div>
-            <span class="progress-time remaining" data-nowPlaying="progress-time"></span>
+            <span class="progress-time remaining" data-nowPlaying="progress-time-rem"></span>
         </div>
     </div>
     <div class="now-playing-bar__right">

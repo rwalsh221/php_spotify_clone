@@ -3,8 +3,14 @@ class Audio {
     this.currentlyPlaying = currentlyPlaying;
     this.audioHtmlElement = document.createElement('audio');
     this.audioHtmlElement.addEventListener('canplay', () => {
-      document.querySelector('[data-nowPlaying="progress-time"]').textContent =
-        this.formatTime(this.audioHtmlElement.duration);
+      document.querySelector(
+        '[data-nowPlaying="progress-time-rem"]'
+      ).textContent = this.formatTime(this.audioHtmlElement.duration);
+    });
+    this.audioHtmlElement.addEventListener('timeupdate', () => {
+      if (this.audioHtmlElement.duration) {
+        this.updateTimeProgressBar(this.audioHtmlElement);
+      }
     });
   }
 
@@ -24,6 +30,23 @@ class Audio {
     const minutes = Math.floor(time / 60);
     const seconds = time - minutes * 60;
     return seconds < 10 ? `${minutes}:0${seconds}` : `${minutes}:${seconds}`;
+  }
+
+  updateTimeProgressBar(audio) {
+    document.querySelector(
+      '[data-nowPlaying="progress-time-curr"]'
+    ).textContent = this.formatTime(audio.currentTime);
+
+    document.querySelector(
+      '[data-nowPlaying="progress-time-rem"]'
+    ).textContent = this.formatTime(audio.duration - audio.currentTime);
+
+    // song progress in percent
+    const progressTimePercentage = (audio.currentTime / audio.duration) * 100;
+    console.log(progressTimePercentage);
+    document.querySelector(
+      '[data-nowPlaying="progress-time-bar"]'
+    ).style.width = `${progressTimePercentage}%`;
   }
 }
 
