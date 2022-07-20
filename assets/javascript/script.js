@@ -12,6 +12,9 @@ class Audio {
         this.updateTimeProgressBar(this.audioHtmlElement);
       }
     });
+    this.audioHtmlElement.addEventListener('volumechange', () => {
+      this.updateVolumeProgressBar(this.audioHtmlElement);
+    });
   }
 
   setTrack(track) {
@@ -19,6 +22,7 @@ class Audio {
     this.audioHtmlElement.src = `${track.path}.mp3`;
   }
   playSong() {
+    console.log('play');
     this.audioHtmlElement.play();
   }
   pauseSong() {
@@ -43,10 +47,20 @@ class Audio {
 
     // song progress in percent
     const progressTimePercentage = (audio.currentTime / audio.duration) * 100;
-    console.log(progressTimePercentage);
     document.querySelector(
-      '[data-nowPlaying="progress-time-bar"]'
+      '[data-nowPlaying="progress-bar-foreground"]'
     ).style.width = `${progressTimePercentage}%`;
+  }
+
+  updateVolumeProgressBar(audio) {
+    const volume = audio.volume * 100;
+    document.querySelector(
+      '[data-nowPlaying="volume-bar-foreground"]'
+    ).style.width = `${volume}%`;
+  }
+
+  setTime(seconds) {
+    this.audioHtmlElement.currentTime = seconds;
   }
 }
 
@@ -60,3 +74,5 @@ class Audio {
 
 let currentPlaylist = [];
 let audioElement;
+let mouseDown = false;
+let currentPlaylistIndex = 0;
