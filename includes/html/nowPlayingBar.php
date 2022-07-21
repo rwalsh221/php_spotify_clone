@@ -11,22 +11,48 @@
 ?>
 
 <script>
-    const nextSong = () => {
-        const test = !audioElement.audioHtmlElement.paused
-        console.log(test)
+    const nextSong = (play = false) => {
+        console.log('next')
+        if (repeat === true) {
+            audioElement.setTime(0);
+            playSong();
+            return;
+        }
+        
         if(currentPlaylistIndex === currentPlaylist.length - 1) {
             currentPlaylistIndex = 0
         } else {
             currentPlaylistIndex += 1
         }
 
-        
-            setTrack(currentPlaylist[currentPlaylistIndex], currentPlaylist, !audioElement.audioHtmlElement.paused)
+        const continuePlay = play ? true : !audioElement.audioHtmlElement.paused
+
+        setTrack(currentPlaylist[currentPlaylistIndex], currentPlaylist, continuePlay)
 
         
     }
 
-    // const prevSong 
+    const prevSong = () => {
+        if (audioElement.audioHtmlElement.currentTime <= 3 || currentPlaylistIndex === 0) {
+            audioElement.setTime(0)
+        } else {
+            currentPlaylistIndex -= 1
+
+            setTrack(currentPlaylist[currentPlaylistIndex], currentPlaylist, !audioElement.audioHtmlElement.paused)
+        }
+    }
+
+    const repeatSong = () => {
+        if (repeat === true) {
+            repeat = false
+            document.querySelector('[data-button="repeat"]').style.color = '#808080'
+        } else {
+            repeat = true
+            document.querySelector('[data-button="repeat"]').style.color = 'green'
+
+            
+        }
+    } 
 
     const getSongAjax = async (trackId) => {
         
@@ -64,12 +90,10 @@
 
             const albumJson = await album.json();
 
-            console.log(albumJson)
-
             document.querySelector('[data-nowPlaying="song-title"]').textContent = songJson.title;
             document.querySelector('[data-nowPlaying="song-artist"]').textContent = artistJson.name;
             document.querySelector('[data-nowPlaying="song-album-art"]').src = albumJson.artworkPath;
-            console.log(audioElement)
+
             audioElement.setTrack(songJson);
             
         
@@ -234,11 +258,11 @@
     <div class="now-playing-bar__center">
         <div class="now-playing-bar__controls">
             <button class="now-playing-bar__button" title="Shuffle"><ion-icon name="shuffle-outline"></ion-icon></ion-icon></button>
-            <button class="now-playing-bar__button" title="Skip back"><ion-icon name="play-skip-back"></ion-icon></button>
+            <button class="now-playing-bar__button" title="Skip back" onclick="prevSong()"><ion-icon name="play-skip-back"></ion-icon></button>
             <button class="now-playing-bar__button button-play" data-button='play' title="Play" onclick="playSong()"><ion-icon name="play-circle-outline"></ion-icon></button>
             <button class="now-playing-bar__button button-pause" data-button='pause' title="Pause" onclick="pauseSong()"><ion-icon name="pause-circle-outline"></ion-icon></button>
             <button class="now-playing-bar__button" title="Skip forward" onclick="nextSong()"><ion-icon name="play-skip-forward"></ion-icon></button>
-            <button class="now-playing-bar__button" title="Repeat"><ion-icon name="repeat-outline"></ion-icon></button>
+            <button class="now-playing-bar__button" title="Repeat" data-button="repeat" onclick="repeatSong()"><ion-icon name="repeat-outline"></ion-icon></button>
         </div>
         <div class="now-playing-bar__progress-bar">
             <span class="progress-time current" data-nowPlaying="progress-time-curr">0.00</span>

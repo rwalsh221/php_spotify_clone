@@ -15,6 +15,9 @@ class Audio {
     this.audioHtmlElement.addEventListener('volumechange', () => {
       this.updateVolumeProgressBar(this.audioHtmlElement);
     });
+    this.audioHtmlElement.addEventListener('ended', () => {
+      nextSong(true);
+    });
   }
 
   setTrack(track) {
@@ -76,3 +79,4 @@ let currentPlaylist = [];
 let audioElement;
 let mouseDown = false;
 let currentPlaylistIndex = 0;
+let repeat = false;
