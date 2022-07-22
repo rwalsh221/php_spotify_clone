@@ -26,8 +26,10 @@
         }
 
         const continuePlay = play ? true : !audioElement.audioHtmlElement.paused
-
-        setTrack(currentPlaylist[currentPlaylistIndex], currentPlaylist, continuePlay)
+        const songToPlay = shuffle ? shufflePlaylist[currentPlaylistIndex] : currentPlaylist[currentPlaylistIndex]
+        console.log(shufflePlaylist)
+        console.log(songToPlay)
+        setTrack(songToPlay, currentPlaylist, continuePlay)
 
         
     }
@@ -52,7 +54,40 @@
 
             
         }
-    } 
+    }
+
+    const shuffleSong = () => {
+        if (shuffle === true) {
+            console.log('shuffle off')
+            shuffle = false
+            document.querySelector('[data-button="shuffle"]').style.color = '#808080'
+            currentPlaylistIndex = currentPlaylist.indexOf(audioElement.currentlyPlaying.id)
+        } else {
+            console.log('shuffle on')
+            shuffle = true
+            document.querySelector('[data-button="shuffle"]').style.color = 'green'
+            audioElement.shuffleArray(shufflePlaylist)
+            currentPlaylistIndex = shufflePlaylist.indexOf(audioElement.currentlyPlaying.id)
+            console.log(shufflePlaylist)
+        }
+        
+    }
+
+    
+    const muteVolume = () => {
+        console.log(audioElement.audioHtmlElement.muted)
+        if (!audioElement.audioHtmlElement.muted) {
+            audioElement.setVolumeProgressBarMute(true)
+            audioElement.audioHtmlElement.muted = true;
+            document.querySelector('[data-nowPlaying="btn-non-muted"]').style.display = 'none'
+            document.querySelector('[data-nowPlaying="btn-muted"]').style.display = 'block'
+        } else {
+            audioElement.setVolumeProgressBarMute(false)
+            audioElement.audioHtmlElement.muted = false;
+            document.querySelector('[data-nowPlaying="btn-non-muted"]').style.display = 'block'
+            document.querySelector('[data-nowPlaying="btn-muted"]').style.display = 'none'
+        }
+    }
 
     const getSongAjax = async (trackId) => {
         
@@ -104,7 +139,20 @@
     }
 
     const setTrack = async (trackId, newPlaylist, play) => {
-        currentPlaylistIndex = currentPlaylist.indexOf(trackId)
+        console.log(newPlaylist)
+        if (newPlaylist !== currentPlaylist) {
+            currentPlaylist = newPlaylist
+            shufflePlaylist = [...currentPlaylist]
+            audioElement.shuffleArray(shufflePlaylist)
+        }
+
+        if(shuffle === true) {
+            currentPlaylistIndex = shufflePlaylist.indexOf(trackId)
+        } else {
+            currentPlaylistIndex = currentPlaylist.indexOf(trackId)
+        }
+        
+        
         try {
 
             await getSongAjax(trackId)
@@ -172,10 +220,11 @@
 
     // EVENET LISTNER WHEN PAGE IS LOADED
     document.addEventListener("DOMContentLoaded", function(event) {
-        currentPlaylist = <?php echo $jsonArray ?>;
+        console.log('domLOADED')
+        const newPlaylist = <?php echo $jsonArray ?>;
         audioElement = new Audio();
         
-        setTrack(currentPlaylist[0], currentPlaylist, false)
+        setTrack(newPlaylist[0], newPlaylist, false)
 
         const progressBarHtml = document.querySelector('[data-nowPlaying="progress-bar"]')
         const volumeBarHtml = document.querySelector('[data-nowPlaying="volume-bar"]')
@@ -241,7 +290,7 @@
             if(mouseDown === true) { mouseDown = false }
         })
         
-        audioElement.updateVolumeProgressBar(audioElement.audioHtmlElement)
+        audioElement.updateVolumeProgressBar(audioElement.audioHtmlElement.volume)
     });
 </script>
 
@@ -257,7 +306,7 @@
     </div>
     <div class="now-playing-bar__center">
         <div class="now-playing-bar__controls">
-            <button class="now-playing-bar__button" title="Shuffle"><ion-icon name="shuffle-outline"></ion-icon></ion-icon></button>
+            <button class="now-playing-bar__button" title="Shuffle" data-button="shuffle" onclick="shuffleSong()"><ion-icon name="shuffle-outline"></ion-icon></ion-icon></button>
             <button class="now-playing-bar__button" title="Skip back" onclick="prevSong()"><ion-icon name="play-skip-back"></ion-icon></button>
             <button class="now-playing-bar__button button-play" data-button='play' title="Play" onclick="playSong()"><ion-icon name="play-circle-outline"></ion-icon></button>
             <button class="now-playing-bar__button button-pause" data-button='pause' title="Pause" onclick="pauseSong()"><ion-icon name="pause-circle-outline"></ion-icon></button>
@@ -275,7 +324,8 @@
         </div>
     </div>
     <div class="now-playing-bar__right">
-        <button class="now-playing-bar__button"><ion-icon name="volume-medium-outline"></ion-icon></button>
+        <button class="now-playing-bar__button btn__non-muted" data-nowPlaying="btn-non-muted" onclick="muteVolume()"><ion-icon name="volume-medium-outline"></ion-icon></button>
+        <button class="now-playing-bar__button btn__muted" data-nowPlaying="btn-muted" onclick="muteVolume()"><ion-icon name="volume-mute-outline"></ion-icon></button>
         <div class="now-playing__volume-bar" data-nowPlaying="volume-bar">
             <div class="volume-bar__background">
                 <div class="volume-bar__foreground" data-nowPlaying="volume-bar-foreground"></div>

@@ -13,7 +13,7 @@ class Audio {
       }
     });
     this.audioHtmlElement.addEventListener('volumechange', () => {
-      this.updateVolumeProgressBar(this.audioHtmlElement);
+      this.updateVolumeProgressBar(this.audioHtmlElement.volume);
     });
     this.audioHtmlElement.addEventListener('ended', () => {
       nextSong(true);
@@ -24,10 +24,12 @@ class Audio {
     this.currentlyPlaying = track;
     this.audioHtmlElement.src = `${track.path}.mp3`;
   }
+
   playSong() {
     console.log('play');
     this.audioHtmlElement.play();
   }
+
   pauseSong() {
     this.audioHtmlElement.pause();
   }
@@ -55,8 +57,16 @@ class Audio {
     ).style.width = `${progressTimePercentage}%`;
   }
 
-  updateVolumeProgressBar(audio) {
-    const volume = audio.volume * 100;
+  setVolumeProgressBarMute(mute) {
+    if (mute) {
+      this.audioHtmlElement.volume = 0;
+    } else {
+      this.audioHtmlElement.dispatchEvent(new Event('volumechange'));
+    }
+  }
+
+  updateVolumeProgressBar(audioVolume) {
+    const volume = audioVolume * 100;
     document.querySelector(
       '[data-nowPlaying="volume-bar-foreground"]'
     ).style.width = `${volume}%`;
@@ -64,6 +74,14 @@ class Audio {
 
   setTime(seconds) {
     this.audioHtmlElement.currentTime = seconds;
+  }
+
+  shuffleArray(array) {
+    console.log(array);
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
   }
 }
 
@@ -76,7 +94,10 @@ class Audio {
 // });
 
 let currentPlaylist = [];
+let shufflePlaylist = [];
+let tempPlaylist = [];
 let audioElement;
 let mouseDown = false;
 let currentPlaylistIndex = 0;
 let repeat = false;
+let shuffle = false;

@@ -32,6 +32,10 @@
             return $this->songTitle;
         }
 
+        public function getSongId() {
+            return $this->id;
+        }
+
         public function getArtist() {
             return new Artist($this->dBConnection, $this->artistId);
         }

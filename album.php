@@ -38,6 +38,8 @@ if (isset($_GET['id'])) {
     <link rel="stylesheet" type="text/css" href="assets/css/album.css">
     <title>Welcome to Slotify</title>
 </head>
+
+
 <body>
     <main class="main">
         <section class="navigation">
@@ -69,7 +71,7 @@ if (isset($_GET['id'])) {
                                 
                                 echo "<li>
                                         <div class='tracklist-container__track-count'>
-                                            <span class='tracklist-container__track-count--play'><ion-icon name='play'></ion-icon></span>
+                                            <span class='tracklist-container__track-count--play' onClick='setTrack(" . $albumSong->getSongId() . ", tempPlaylist, true)'><ion-icon name='play'></ion-icon></span>
                                             <span class='tracklist-container__track-count--count'>$songCount</span>
                                         </div>
                                         <div class='tracklist-container__track-info'>
@@ -83,6 +85,13 @@ if (isset($_GET['id'])) {
                                 $songCount += 1;
                             }
                         ?>
+                       <script> 
+                       document.addEventListener("DOMContentLoaded", function(event) {let tempSongIds = '<?php echo json_encode($songIdArray); ?>'
+                            tempPlaylist = JSON.parse(tempSongIds);
+                            console.log(tempPlaylist)})
+                            
+                        
+</script>
                     </ul>
                 </div>
             

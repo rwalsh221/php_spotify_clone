@@ -253,6 +253,10 @@ select:-webkit-autofill:focus {
   border-radius: 25rem;
 }
 
+.btn__muted {
+  display: none;
+}
+
 /* NAVIGATION *************************************************************************************************** */
 
 .navigation {
