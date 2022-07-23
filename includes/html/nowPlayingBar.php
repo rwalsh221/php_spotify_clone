@@ -158,7 +158,7 @@
             await getSongAjax(trackId)
             
             if(play) {
-            audioElement.playSong()
+            playSong()
             }
 
         } catch (error) {

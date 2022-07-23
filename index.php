@@ -23,7 +23,7 @@ if(isset($_SESSION['userLoggedIn'])) {
     <title>Welcome to Slotify</title>
 </head>
 <body>
-    <main class="main">
+    <main class="main" data-main="main">
         <section class="navigation">
             <?php require('includes/html/navigation.php') ?>
         </section>

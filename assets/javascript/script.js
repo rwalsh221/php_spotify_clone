@@ -93,6 +93,47 @@ class Audio {
 //   audioElement.audioElement.play();
 // });
 
+const getUserLoggedIn = async () => {
+  try {
+    const loggedIn = await fetch('includes/ajax/getLoginJson.php', {
+      method: 'get',
+    });
+    console.log(loggedIn);
+    const loggedInJson = await loggedIn.json();
+    console.log(loggedInJson);
+    return loggedInJson;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const openPage = async (url) => {
+  try {
+    const userLoggedIn = await getUserLoggedIn();
+
+    if (url.indexOf('?') === -1) {
+      url = `${url}?`;
+    }
+
+    const encodedUrl = encodeURI(`${url}&userLoggedIn=${userLoggedIn}`);
+
+    const getPage = await fetch(encodedUrl, {
+      method: 'get',
+      type: 'text',
+    });
+
+    console.log(document.querySelector('[data-main="main"]'));
+
+    const getPageHtml = await getPage.text();
+
+    // console.log(getPageHtml);
+    document.querySelector('[data-main="main"]').innerHTML = getPageHtml;
+    console.log(document.querySelector('[data-main="main"]'));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 let currentPlaylist = [];
 let shufflePlaylist = [];
 let tempPlaylist = [];
@@ -101,3 +142,4 @@ let mouseDown = false;
 let currentPlaylistIndex = 0;
 let repeat = false;
 let shuffle = false;
+// openPage();

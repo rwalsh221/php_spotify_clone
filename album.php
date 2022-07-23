@@ -10,6 +10,7 @@ require("includes/classes/Song.php");
 // CHECK IF USER LOGGED IN IF NOT REDIRECT TO REGISTER.PHP
 if(isset($_SESSION['userLoggedIn'])) {
     $userLoggedIn = $_SESSION['userLoggedIn'];
+    echo "<script> userLoggedIn = '$userLoggedIn'; </script>";
 } else {
     header("Location: register.php");
 }
@@ -41,7 +42,7 @@ if (isset($_GET['id'])) {
 
 
 <body>
-    <main class="main">
+    <main class="main" data-main='main'>
         <section class="navigation">
             <?php require('includes/html/navigation.php') ?>
         </section>
@@ -71,7 +72,7 @@ if (isset($_GET['id'])) {
                                 
                                 echo "<li>
                                         <div class='tracklist-container__track-count'>
-                                            <span class='tracklist-container__track-count--play' onClick='setTrack(" . $albumSong->getSongId() . ", tempPlaylist, true)'><ion-icon name='play'></ion-icon></span>
+                                            <span class='tracklist-container__track-count--play' onClick='setTrack(\"" . $albumSong->getSongId() . "\", tempPlaylist, true)'><ion-icon name='play'></ion-icon></span>
                                             <span class='tracklist-container__track-count--count'>$songCount</span>
                                         </div>
                                         <div class='tracklist-container__track-info'>

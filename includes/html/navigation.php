@@ -1,6 +1,6 @@
 <nav class="nav-bar">
     <ul>
-        <li class="nav-logo"><a href="/"><ion-icon name="radio-sharp"></ion-icon></a></li>
+        <li class="nav-logo" onclick="openPage('index.php')"><ion-icon name="radio-sharp"></ion-icon></li>
         <li class="nav-search-form">
             <form id="nav-form" action="index.php" method="post">
                 <div class="nav-search-form__container">
