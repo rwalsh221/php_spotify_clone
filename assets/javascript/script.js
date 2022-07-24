@@ -116,19 +116,19 @@ const openPage = async (url) => {
     }
 
     const encodedUrl = encodeURI(`${url}&userLoggedIn=${userLoggedIn}`);
-
+    console.log(encodedUrl);
     const getPage = await fetch(encodedUrl, {
       method: 'get',
       type: 'text',
     });
 
-    console.log(document.querySelector('[data-main="main"]'));
+    console.log(document.querySelector('[data-main-content="main"]'));
 
     const getPageHtml = await getPage.text();
-
+    console.log(getPageHtml);
     // console.log(getPageHtml);
-    document.querySelector('[data-main="main"]').innerHTML = getPageHtml;
-    console.log(document.querySelector('[data-main="main"]'));
+    document.querySelector('[data-main-content]').innerHTML = getPageHtml;
+    console.log(document.querySelector('[data-main-content]'));
   } catch (error) {
     console.error(error);
   }

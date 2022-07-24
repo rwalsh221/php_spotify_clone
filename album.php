@@ -46,7 +46,7 @@ if (isset($_GET['id'])) {
         <section class="navigation">
             <?php require('includes/html/navigation.php') ?>
         </section>
-        <section class="album-content">
+        <section section class="main-content album-content" data-main-content>
             
                 <div class="album-container">
                     <div class="album-container__img">

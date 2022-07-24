@@ -23,25 +23,12 @@ if(isset($_SESSION['userLoggedIn'])) {
     <title>Welcome to Slotify</title>
 </head>
 <body>
-    <main class="main" data-main="main">
+    <main class="main">
         <section class="navigation">
             <?php require('includes/html/navigation.php') ?>
         </section>
-        <section class="main-content">
-            <h1 class="heading__primary main-heading">You Might Also Like</h1>
-
-            <?php 
-                $albumQuery = mysqli_query($dBConnection, "SELECT * FROM albums ORDER BY RAND() LIMIT 10");
-                
-                while($dbRow = mysqli_fetch_array($albumQuery)) {
-                    echo "<div class='album-card'>
-                            <a href='album.php?id=" . $dbRow['id'] . "'>
-                                <img class='album-image' src='" . $dbRow['artworkPath'] . "'>
-                                <p class='album-title'>" . $dbRow['title'] . "</p>
-                            </a>
-                        </div>";
-                }
-            ?>
+        <section class="main-content" data-main-content>
+            <?php require('includes/html/albumList.php') ?>
         </section>
         <section class="now-playing-bar-container">
             <?php require('includes/html/nowPlayingBar.php') ?>
