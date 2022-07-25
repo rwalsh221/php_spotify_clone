@@ -6,10 +6,10 @@
     
     while($dbRow = mysqli_fetch_array($albumQuery)) {
         echo "<div class='album-card'>
-                <a href='album.php?id=" . $dbRow['id'] . "'>
+                <span role='link' tabindex='0' onclick='openPage(\"includes/html/albumContent.php?id=" . $dbRow['id'] . "\")'>
                     <img class='album-image' src='" . $dbRow['artworkPath'] . "'>
                     <p class='album-title'>" . $dbRow['title'] . "</p>
-                </a>
+                </span>
             </div>";
     }
 ?>

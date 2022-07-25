@@ -1,6 +1,6 @@
 <nav class="nav-bar">
     <ul>
-        <li class="nav-logo" onclick="openPage('includes/html/albumList.php')"><ion-icon name="radio-sharp"></ion-icon></li>
+        <li class="nav-logo nav-link" role="link" tabindex="0" onclick="openPage('includes/html/albumList.php')"><ion-icon class="nav-link" name="radio-sharp"></ion-icon></li>
         <li class="nav-search-form">
             <form id="nav-form" action="index.php" method="post">
                 <div class="nav-search-form__container">
@@ -10,8 +10,8 @@
                 </div>
             </form>
         </li>
-        <li class="nav-link"><a href="/">browse</a></li>
-        <li class="nav-link"><a href="/">your music</a></li>
-        <li class="nav-link"><a href="/">bunk moreland</a></li>
+        <li class="nav-link"><span role="link" tabindex="0" onclick="openPage('includes/html/browse.php')">browse</span></li>
+        <li class="nav-link"><span role="link" tabindex="0" onclick="openPage('includes/html/yourMusic.php')">your music</span></li>
+        <li class="nav-link"><span role="link" tabindex="0" onclick="openPage('includes/html/profile.php')">bunk moreland</span></li>
     </ul>
 </nav>

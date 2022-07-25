@@ -121,14 +121,13 @@ const openPage = async (url) => {
       method: 'get',
       type: 'text',
     });
-
-    console.log(document.querySelector('[data-main-content="main"]'));
-
+    console.log(url);
     const getPageHtml = await getPage.text();
-    console.log(getPageHtml);
     // console.log(getPageHtml);
     document.querySelector('[data-main-content]').innerHTML = getPageHtml;
-    console.log(document.querySelector('[data-main-content]'));
+    console.log(document.querySelector('body'));
+    document.querySelector('body').scrollTop = 0;
+    // history.pushState(null, '', encodedUrl);
   } catch (error) {
     console.error(error);
   }

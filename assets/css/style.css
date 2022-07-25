@@ -330,7 +330,11 @@ select:-webkit-autofill:focus {
   font-size: 3.5rem;
 }
 
-.nav-link a:hover {
+.nav-link {
+  cursor: pointer;
+}
+
+.nav-link:hover {
   color: green;
 }
 
