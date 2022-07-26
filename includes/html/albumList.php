@@ -1,7 +1,8 @@
 <h1 class="heading__primary main-heading">You Might Also Like</h1>
 
 <?php 
-    include('../config.php');
+include __DIR__ . '/../config.php'; 
+
     $albumQuery = mysqli_query($dBConnection, "SELECT * FROM albums ORDER BY RAND() LIMIT 10");
     
     while($dbRow = mysqli_fetch_array($albumQuery)) {

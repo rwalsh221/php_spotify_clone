@@ -1,19 +1,8 @@
 <?php 
-include("../config.php");
-include("../classes/Artist.php");
-include("../classes/Album.php");
-include("../classes/Song.php");
-
-// MANUAL LOGOUT
-// session_destroy();
-
-// CHECK IF USER LOGGED IN IF NOT REDIRECT TO REGISTER.PHP
-if(isset($_SESSION['userLoggedIn'])) {
-    $userLoggedIn = $_SESSION['userLoggedIn'];
-    echo "<script> userLoggedIn = '$userLoggedIn'; </script>";
-} else {
-    header("Location: register.php");
-}
+include __DIR__ . '/../config.php';
+include __DIR__ . '/../classes/Artist.php';
+include __DIR__ . '/../classes/Album.php';
+include __DIR__ . '/../classes/Song.php';
 
 // CHECK FOR ALBUM ID ON URL AND GET FROM DB
 if (isset($_GET['id'])) {
@@ -23,8 +12,10 @@ if (isset($_GET['id'])) {
 
     $album = new Album($dBConnection, $albumId);
     $artist = $album->getArtist();
+    echo $albumId;
     } else {
-    header("Location: index.php");
+    // header("Location: index.php");
+    echo 'NO ID';
 }
 ?>
 
@@ -68,9 +59,12 @@ if (isset($_GET['id'])) {
                             }
                         ?>
                        <script> 
+                       
                        document.addEventListener("DOMContentLoaded", function(event) {let tempSongIds = '<?php echo json_encode($songIdArray); ?>'
-                            tempPlaylist = JSON.parse(tempSongIds);
-                            console.log(tempPlaylist)})
+                        console.log('asddjkshajdhajkshdkjhsjkahkjdhjksadhkjhdjksdhkajshdkjhaskjhdkjashdhajhdksjhdkjashdjhsajhdsahjdhakjshdkad')
+                        console.log(tempSongIds + ' hsajdhksjhdjkashdkj')    
+                        tempPlaylist = JSON.parse(tempSongIds);
+                        console.log(tempPlaylist)})
                             
                         
 </script>

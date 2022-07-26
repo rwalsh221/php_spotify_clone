@@ -1,6 +1,8 @@
 <?php 
 include __DIR__ . '/includes/config.php';
 
+
+
 // MANUAL LOGOUT
 // session_destroy();
 
@@ -44,7 +46,7 @@ if(isset($_SESSION['userLoggedIn'])) {
             <?php require('includes/html/navigation.php') ?>
         </section>
         <section section class="main-content album-content" data-main-content>
-            <?php require('includes/html/albumContent.php') ?>
+            <?php require('includes/html/artistContent.php') ?>
         </section>
         <section class="now-playing-bar-container">
             <?php require('includes/html/nowPlayingBar.php') ?>

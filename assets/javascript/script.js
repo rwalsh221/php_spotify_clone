@@ -95,9 +95,12 @@ class Audio {
 
 const getUserLoggedIn = async () => {
   try {
-    const loggedIn = await fetch('includes/ajax/getLoginJson.php', {
-      method: 'get',
-    });
+    const loggedIn = await fetch(
+      'http://localhost/php_spotify_clone/includes/ajax/getLoginJson.php',
+      {
+        method: 'get',
+      }
+    );
     console.log(loggedIn);
     const loggedInJson = await loggedIn.json();
     console.log(loggedInJson);
@@ -109,25 +112,32 @@ const getUserLoggedIn = async () => {
 
 const openPage = async (url) => {
   try {
+    console.log(url + ' hshhshshs');
     const userLoggedIn = await getUserLoggedIn();
 
     if (url.indexOf('?') === -1) {
       url = `${url}?`;
     }
-
+    console.log(userLoggedIn);
     const encodedUrl = encodeURI(`${url}&userLoggedIn=${userLoggedIn}`);
+    // const encodedUrl = encodeURI(`${url}`);
+
     console.log(encodedUrl);
-    const getPage = await fetch(encodedUrl, {
+    const getPage = await fetch(`${encodedUrl}`, {
       method: 'get',
       type: 'text',
     });
-    console.log(url);
+    console.log(`http://localhost/php_spotify_clone/${encodedUrl}`);
     const getPageHtml = await getPage.text();
     // console.log(getPageHtml);
     document.querySelector('[data-main-content]').innerHTML = getPageHtml;
     console.log(document.querySelector('body'));
     document.querySelector('body').scrollTop = 0;
-    // history.pushState(null, '', encodedUrl);
+    console.log(url.lastIndexOf('/'));
+    const pushUrl = url.slice(url.lastIndexOf('/') + 1, url.length - 1);
+    console.log(pushUrl);
+    // history.pushState(null, null, `http://localhost/php_spotify_clone/`);
+    // console.log(history);
   } catch (error) {
     console.error(error);
   }
