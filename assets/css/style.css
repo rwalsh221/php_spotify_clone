@@ -81,10 +81,19 @@ select:-webkit-autofill:focus {
   min-width: 720px;
 }
 
+.main-content {
+  padding: 2rem;
+}
+
 .heading__primary {
   font-size: 6rem;
   font-weight: bold;
   color: green;
+}
+
+.heading__secondary {
+  font-size: 3rem;
+  font-weight: bold;
 }
 
 /* NOW PLAYING BAR ******************************************* */
@@ -338,16 +347,15 @@ select:-webkit-autofill:focus {
   color: green;
 }
 
-/* MAIN CONTENT **************************************************************************************************** */
-.main-content {
+/* ALBUM CONTENT **************************************************************************************************** */
+.album-list {
   grid-area: main;
-  padding: 2rem;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: max-content;
 }
 
-.main-heading {
+.album-list__heading {
   grid-column: 1 / 5;
   justify-self: center;
   padding: 2rem 0;
@@ -371,4 +379,30 @@ select:-webkit-autofill:focus {
   font-weight: bold;
   color: white;
   text-transform: capitalize;
+}
+
+/* SEARCH CONTENT **************************************** */
+.search-container {
+  width: 100%;
+  margin: 0 auto;
+  background-color: #282828;
+  padding: 1rem;
+}
+
+.search-heading,
+.search-input {
+  color: green;
+  margin: 1rem 0;
+}
+
+.search-heading {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.search-input {
+  width: 100%;
+  font-size: 5rem;
+  background-color: inherit;
+  border: none;
 }

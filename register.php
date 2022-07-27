@@ -102,7 +102,7 @@ function getFormFieldValue($name) {
             </div>
 
             <div class="content-container">
-                <h1 class="heading__primary">Get great music, right now</h1>
+                <h1 class="heading__primary">Get great music,<br> right now</h1>
                 <p>Listen to loads of songs for free</p>
                 <ul>
                     <li><ion-icon class="icon" name="checkmark-outline"></ion-icon>&nbsp;<span>Music you'll fall in love with</span></li>

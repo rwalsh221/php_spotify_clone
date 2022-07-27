@@ -126,12 +126,15 @@
             const albumJson = await album.json();
 
             document.querySelector('[data-nowPlaying="song-title"]').textContent = songJson.title;
+            document.querySelector('[data-nowPlaying="song-title"]').setAttribute('onclick', `openPage('includes/html/albumContent.php?id=${albumJson.id}')`) 
             document.querySelector('[data-nowPlaying="song-artist"]').textContent = artistJson.name;
+            document.querySelector('[data-nowPlaying="song-artist"]').setAttribute('onclick', `openPage('includes/html/artistContent.php?id=${artistJson.id}')`) 
             document.querySelector('[data-nowPlaying="song-album-art"]').src = albumJson.artworkPath;
+            document.querySelector('[data-nowPlaying="song-album-art"]').setAttribute('onclick', `openPage('includes/html/albumContent.php?id=${albumJson.id}')`) 
+
 
             audioElement.setTrack(songJson);
             
-        
         } catch {
 
         }
@@ -297,11 +300,11 @@
 <div class="now-playing-bar" data-nowPlaying="now-playing-container">
     <div class="now-playing-bar__left">
         <div class="now-playing__img">
-            <img data-nowPlaying="song-album-art" src="" alt="now playing">
+            <img role="link" tabindex="0" data-nowPlaying="song-album-art" src="" alt="now playing">
         </div>
         <div class="now-playing__info">
-            <p class="now-playing__song-title" data-nowPlaying="song-title"></p>
-            <p class="now-playing__song-artist" data-nowPlaying="song-artist"></p>
+            <p role="link" tabindex="0" class="now-playing__song-title" data-nowPlaying="song-title"></p>
+            <p role="link" tabindex="0" class="now-playing__song-artist" data-nowPlaying="song-artist"></p>
         </div>
     </div>
     <div class="now-playing-bar__center">

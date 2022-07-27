@@ -110,7 +110,7 @@ const getUserLoggedIn = async () => {
   }
 };
 
-const openPage = async (url) => {
+const openPage = async (url, element = null) => {
   try {
     console.log(url + ' hshhshshs');
     const userLoggedIn = await getUserLoggedIn();
@@ -138,11 +138,46 @@ const openPage = async (url) => {
     console.log(pushUrl);
     // history.pushState(null, null, `http://localhost/php_spotify_clone/`);
     // console.log(history);
+
+    console.log('pageChange');
+    if (element) {
+      document.querySelector(`.${element.className}`).focus();
+    }
   } catch (error) {
     console.error(error);
   }
 };
 
+const playArtistPlaylist = () => {
+  setTrack(tempPlaylist[0], tempPlaylist, true);
+};
+
+const clearTimers = (arr) => {
+  arr.forEach((timer) => {
+    clearTimeout(timer);
+  });
+};
+
+const searchHandler = (element) => {
+  if (element.value === '') {
+    console.log('empty');
+    return;
+  }
+  // let timer;
+  // console.log(timer);
+  // const searchInput = document.querySelector("[data-search='input']");
+
+  // clearTimeout(timer);
+  clearTimers(runningTimers);
+  const timer = setTimeout(() => {
+    openPage(`includes/html/searchContent.php?term=${element.value}`, element);
+  }, 2000);
+  runningTimers.push(timer);
+
+  console.log(runningTimers);
+};
+
+const runningTimers = [];
 let currentPlaylist = [];
 let shufflePlaylist = [];
 let tempPlaylist = [];
