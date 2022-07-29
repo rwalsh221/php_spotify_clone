@@ -111,6 +111,7 @@ const getUserLoggedIn = async () => {
 };
 
 const openPage = async (url, element = null) => {
+  clearTimers(runningTimers);
   try {
     console.log(url + ' hshhshshs');
     const userLoggedIn = await getUserLoggedIn();
@@ -153,6 +154,10 @@ const playArtistPlaylist = () => {
 };
 
 const clearTimers = (arr) => {
+  if (arr.length === 0) {
+    return;
+  }
+
   arr.forEach((timer) => {
     clearTimeout(timer);
   });
@@ -160,21 +165,13 @@ const clearTimers = (arr) => {
 
 const searchHandler = (element) => {
   if (element.value === '') {
-    console.log('empty');
     return;
   }
-  // let timer;
-  // console.log(timer);
-  // const searchInput = document.querySelector("[data-search='input']");
-
-  // clearTimeout(timer);
   clearTimers(runningTimers);
   const timer = setTimeout(() => {
     openPage(`includes/html/searchContent.php?term=${element.value}`, element);
   }, 2000);
   runningTimers.push(timer);
-
-  console.log(runningTimers);
 };
 
 const runningTimers = [];
@@ -187,3 +184,4 @@ let currentPlaylistIndex = 0;
 let repeat = false;
 let shuffle = false;
 // openPage();
+console.log('hello script');

@@ -29,6 +29,10 @@ class Artist {
 
         return $array;
     }
+
+    public function getId() {
+        return $this->id;
+    }
     
 }
 ?>
