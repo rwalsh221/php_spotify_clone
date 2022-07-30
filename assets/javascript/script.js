@@ -174,6 +174,38 @@ const searchHandler = (element) => {
   runningTimers.push(timer);
 };
 
+const createPlaylist = async () => {
+  const userLoggedIn = await getUserLoggedIn();
+  const popup = prompt('Please enter the name of your playlist');
+  try {
+    if (popup != null) {
+      console.log(popup);
+    }
+
+    const data = {
+      name: popup,
+      username: userLoggedIn,
+    };
+
+    console.log(data);
+
+    const send = await fetch('includes/ajax/createPlaylist.php', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      // name: JSON.stringify(popup),
+      // username: JSON.stringify(userLoggedIn),
+    });
+
+    const sendJson = await send.text();
+
+    console.log(sendJson);
+
+    openPage('includes/html/yourMusicContent.php');
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const runningTimers = [];
 let currentPlaylist = [];
 let shufflePlaylist = [];
