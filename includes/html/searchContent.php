@@ -12,6 +12,8 @@ if(isset($_GET['term'])) {
     echo 'no term';
     $term = '';
 }
+
+
 ?>
 
 <div class="search-content">

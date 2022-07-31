@@ -5,7 +5,7 @@
             <button onclick="openPage('includes/html/searchContent.php')">search<ion-icon name="search-outline"></ion-icon></button>
         </li>
         <li class="nav-link"><span role="link" tabindex="0" onclick="openPage('includes/html/albumList.php')">browse</span></li>
-        <li class="nav-link"><span role="link" tabindex="0" onclick="openPage('includes/html/yourMusic.php')">your music</span></li>
+        <li class="nav-link"><span role="link" tabindex="0" onclick="openPage('includes/html/yourMusicContent.php')">your music</span></li>
         <li class="nav-link"><span role="link" tabindex="0" onclick="openPage('includes/html/profile.php')">bunk moreland</span></li>
     </ul>
 </nav>
