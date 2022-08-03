@@ -3,55 +3,57 @@ include __DIR__ . '/../config.php';
 include __DIR__ . '/../classes/Artist.php';
 include __DIR__ . '/../classes/Album.php';
 include __DIR__ . '/../classes/Song.php';
+include __DIR__ . '/../classes/Playlist.php';
+include __DIR__ . '/../classes/User.php';
+
+
 
 // CHECK FOR ALBUM ID ON URL AND GET FROM DB
 if (isset($_GET['id'])) {
-    $albumId = $_GET['id'];
-    $albumQuery = mysqli_query($dBConnection, "SELECT * FROM albums WHERE id='$albumId'");
-    $album = mysqli_fetch_array($albumQuery);
+    $playlistId = $_GET['id'];
 
-    $album = new Album($dBConnection, $albumId);
-    $artist = $album->getArtist();
-    echo $albumId;
+    $playlist = new Playlist($dBConnection, $playlistId);
+    $owner = new User($dBConnection, $playlist->getPlaylistOwner());
+
     } else {
-    // header("Location: index.php");
-    echo 'NO ID';
+    header("Location: index.php");
 }
 ?>
 
 
 <div class="album-container">
                     <div class="album-container__img">
-                        <img src="<?php echo $album->getArtworkPath() ?>" alt="album artwork">
+                        <img src="assets/images/playlist.jpg">
                     </div>
                     <div class="album-container__info">
-                        <h1><?php echo $album->getTitle() ?></h1>
-                        <p class="album-container-info--artist"><?php echo 'by ' . $artist->getName() ?></p>
-                        <p class="album-container-info--songs"><?php echo $album->getNumberOfSongs() . ' songs' ?></p>
+                        <h1><?php echo $playlist->getPlaylistName(); ?></h1>
+                        <p class="album-container-info--artist"><?php echo 'by ' . $playlist->getPlaylistOwner(); ?></p>
+                        <p class="album-container-info--songs"><?php echo $playlist->getNumberOfSongs() . ' songs' ?></p>
+                        <button class="playlist-btn-delete" data-btn="playlist-delete" onclick="deletePlaylist('<?php echo $playlistId; ?>')">DELETE PLAYLIST</button>
                     </div>
                 </div>
                 <div class="tracklist-container">
                     <ul>
                         <?php 
-                            $songIdArray = $album->getSongIds();
+                            $songIdArray = $playlist->getPlaylistSongIds();
                             $songCount = 1;
 
                             foreach($songIdArray as $songId) {
-                                $albumSong = new Song($dBConnection, $songId);
+                                $playlistSong = new Song($dBConnection, $songId);
                                 // RETURNS NEW ARTIST OBJECT
-                                $songArtist = $albumSong->getArtist();
-
+                                $songArtist = $playlistSong->getArtist();
+                                
                                 echo "<li>
                                         <div class='tracklist-container__track-count'>
-                                            <span class='tracklist-container__track-count--play' onClick='setTrack(\"" . $albumSong->getSongId() . "\", tempPlaylist, true)'><ion-icon name='play'></ion-icon></span>
+                                            <span class='tracklist-container__track-count--play' onClick='setTrack(\"" . $playlistSong->getSongId() . "\", tempPlaylist, true)'><ion-icon name='play'></ion-icon></span>
                                             <span class='tracklist-container__track-count--count'>$songCount</span>
                                         </div>
                                         <div class='tracklist-container__track-info'>
-                                            <div class='tracklist-container__track-title'>" . $albumSong->getSongTitle() . "</div>
+                                            <div class='tracklist-container__track-title'>" . $playlistSong->getSongTitle() . "</div>
                                             <div class='tracklist-container__track-artist'>" . $songArtist->getName() ."</div>
                                         </div>
                                         <div class='tracklist-container__track-options'><ion-icon name='ellipsis-horizontal'></ion-icon></div>
-                                        <div class='tracklist-container__track-duration'>" . $albumSong->getDuration() . "</div>
+                                        <div class='tracklist-container__track-duration'>" . $playlistSong->getDuration() . "</div>
                                     </li>";
 
                                 $songCount += 1;
@@ -69,3 +71,4 @@ if (isset($_GET['id'])) {
 </script>
                     </ul>
                 </div>
+                

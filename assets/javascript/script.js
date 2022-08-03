@@ -178,16 +178,10 @@ const createPlaylist = async () => {
   const userLoggedIn = await getUserLoggedIn();
   const popup = prompt('Please enter the name of your playlist');
   try {
-    if (popup != null) {
-      console.log(popup);
-    }
-
     const data = {
       name: popup,
       username: userLoggedIn,
     };
-
-    console.log(data);
 
     const send = await fetch('includes/ajax/createPlaylist.php', {
       method: 'POST',
@@ -196,13 +190,30 @@ const createPlaylist = async () => {
       // username: JSON.stringify(userLoggedIn),
     });
 
-    const sendJson = await send.text();
-
-    console.log(sendJson);
-
     openPage('includes/html/yourMusicContent.php');
   } catch (error) {
     console.error(error);
+  }
+};
+
+const deletePlaylist = async (playlistId) => {
+  const prompt = confirm('Are ou sure you want to delete the playlist');
+
+  if (prompt === true) {
+    try {
+      const data = {
+        playlistId,
+      };
+
+      const send = await fetch('includes/ajax/deletePlaylist.php', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      });
+
+      openPage('includes/html/yourMusicContent.php');
+    } catch (error) {
+      console.error(error);
+    }
   }
 };
 

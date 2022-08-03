@@ -42,7 +42,7 @@ if (isset($_GET['userLoggedIn'])) {
             // var_dump($row);
             $playlist = new Playlist($dBConnection, $dbRow);
             echo "<div class='playlist-card' role='link' tabindex='' 
-                        onclick='openPage(\"/includes/html/playlistContent.php?id=" . $playlist->getPlaylistId() ."\")'>
+                        onclick='openPage(\"includes/html/playlistContent.php?id=" . $playlist->getPlaylistId() ."\")'>
                 <div>
                     <img src='assets/images/playlist.jpg'>
                 </div> 
