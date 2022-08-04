@@ -183,12 +183,15 @@ const createPlaylist = async () => {
       username: userLoggedIn,
     };
 
-    const send = await fetch('includes/ajax/createPlaylist.php', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      // name: JSON.stringify(popup),
-      // username: JSON.stringify(userLoggedIn),
-    });
+    const send = await fetch(
+      'http://localhost/php_spotify_clone/includes/ajax/createPlaylist.php',
+      {
+        method: 'POST',
+        body: JSON.stringify(data),
+        // name: JSON.stringify(popup),
+        // username: JSON.stringify(userLoggedIn),
+      }
+    );
 
     openPage('includes/html/yourMusicContent.php');
   } catch (error) {
@@ -214,6 +217,66 @@ const deletePlaylist = async (playlistId) => {
     } catch (error) {
       console.error(error);
     }
+  }
+};
+
+const showSongOptionsMenu = (element) => {
+  const menu = document.querySelector('[data-nav="options-menu"]');
+  menu.style.display = 'block';
+
+  const horizontalOffset = element.getBoundingClientRect().x - menu.offsetWidth;
+  const verticalOffset = element.getBoundingClientRect().y;
+
+  menu.style.left = `${horizontalOffset}px`;
+  menu.style.top = `${verticalOffset}px`;
+
+  // CANT USE ANYMOUS FUNC TO REMOVE EVENTLISTNER
+  const closeSongOptionMenu = () => {
+    menu.style.display = 'none';
+
+    window.removeEventListener('click', closeSongOptionMenu, true);
+    window.removeEventListener('scroll', closeSongOptionMenu, true);
+  };
+
+  // window.addEventListener('click', closeSongOptionMenu, true);
+  // window.addEventListener('scroll', closeSongOptionMenu, true);
+};
+
+const selectPlaylist = async (element) => {
+  try {
+    const parentElement = element.parentNode;
+
+    const userLoggedIn = await getUserLoggedIn();
+
+    const data = {
+      username: userLoggedIn,
+    };
+
+    const playlists = await fetch('includes/ajax/getPlaylists.php', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+
+    const playlistsJson = await playlists.json();
+
+    // REMOVE ALL OPTIONS FROM MENU
+    while (parentElement.firstChild) {
+      parentElement.removeChild(parentElement.lastChild);
+    }
+
+    // REPLACE OPTIONS WITH PLAYLISTS
+    playlistsJson.forEach((playlist) => {
+      const newDiv = document.createElement('div');
+      newDiv.innerText = playlist.name;
+      newDiv.classList.add('options-menu__items');
+      newDiv.dataset.playlistId = `${playlist.id}`;
+      newDiv.addEventListener('click', () => {
+        openPage(`includes/html/playlistContent.php?id=${playlist.id}`);
+      });
+      parentElement.appendChild(newDiv);
+    });
+  } catch (error) {
+    console.error(error);
   }
 };
 

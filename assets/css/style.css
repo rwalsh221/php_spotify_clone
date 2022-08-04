@@ -381,6 +381,14 @@ select:-webkit-autofill:focus {
   text-transform: capitalize;
 }
 
+.tracklist-container__track-options {
+  width: max-content;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
 /* SEARCH CONTENT **************************************** */
 .search-container {
   width: 100%;
@@ -405,4 +413,31 @@ select:-webkit-autofill:focus {
   font-size: 5rem;
   background-color: inherit;
   border: none;
+}
+
+/* SONG OPTION MENU ************************* */
+
+.options-menu {
+  position: fixed;
+  background-color: #282828;
+  width: 25rem;
+  border: 1px solid hsla(0, 0%, 0%, 0.692);
+  border-radius: 3px;
+  z-index: 1000;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  display: none;
+  /* color: green; */
+}
+
+.options-menu__items {
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  cursor: pointer;
+  color: green;
+}
+
+.options-menu__items:hover {
+  background-color: green;
+  color: #282828;
 }
