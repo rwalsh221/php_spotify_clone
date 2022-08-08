@@ -437,6 +437,10 @@ select:-webkit-autofill:focus {
   color: green;
 }
 
+.options-menu__items > * {
+  pointer-events: none;
+}
+
 .options-menu__items:hover {
   background-color: green;
   color: #282828;

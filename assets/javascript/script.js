@@ -220,6 +220,33 @@ const deletePlaylist = async (playlistId) => {
   }
 };
 
+const resetNavHtml = () => {
+  const nav = document.querySelector('[data-nav="options-menu"]');
+  const navHtml = `<div class="options-menu__items" onclick="selectPlaylist(this)" data-nav="options-item">Add to playlist</div>
+  <div class="options-menu__items">Item 2</div>
+  <div class="options-menu__items">Item 3</div>`;
+
+  while (nav.firstChild) {
+    nav.removeChild(nav.lastChild);
+  }
+
+  nav.insertAdjacentHTML('beforeend', navHtml);
+};
+
+const closeSongOptionMenu = (event) => {
+  // CHECK FOR CLICK ON SONG OPTION MENU
+  if (event.type === 'click' && event.target.dataset.hasOwnProperty('nav')) {
+    return;
+  }
+
+  menu.style.display = 'none';
+
+  resetNavHtml();
+
+  window.removeEventListener('click', closeSongOptionMenu, true);
+  window.removeEventListener('scroll', closeSongOptionMenu, true);
+};
+
 const showSongOptionsMenu = (element) => {
   const menu = document.querySelector('[data-nav="options-menu"]');
   menu.style.display = 'block';
@@ -230,16 +257,12 @@ const showSongOptionsMenu = (element) => {
   menu.style.left = `${horizontalOffset}px`;
   menu.style.top = `${verticalOffset}px`;
 
+  // GET ID OF SONG TO ADD TO PLAYLIST
+  menu.dataset.songId = element.dataset.songId;
+
   // CANT USE ANYMOUS FUNC TO REMOVE EVENTLISTNER
-  const closeSongOptionMenu = () => {
-    menu.style.display = 'none';
-
-    window.removeEventListener('click', closeSongOptionMenu, true);
-    window.removeEventListener('scroll', closeSongOptionMenu, true);
-  };
-
-  // window.addEventListener('click', closeSongOptionMenu, true);
-  // window.addEventListener('scroll', closeSongOptionMenu, true);
+  window.addEventListener('click', closeSongOptionMenu, true);
+  window.addEventListener('scroll', closeSongOptionMenu, true);
 };
 
 const selectPlaylist = async (element) => {
@@ -271,13 +294,21 @@ const selectPlaylist = async (element) => {
       newDiv.classList.add('options-menu__items');
       newDiv.dataset.playlistId = `${playlist.id}`;
       newDiv.addEventListener('click', () => {
-        openPage(`includes/html/playlistContent.php?id=${playlist.id}`);
+        addSongToPlaylist(parentElement);
+        // openPage(`includes/html/playlistContent.php?id=${playlist.id}`);
       });
       parentElement.appendChild(newDiv);
     });
   } catch (error) {
     console.error(error);
   }
+};
+
+const addSongToPlaylist = (songId) => {
+  console.log(songId);
+
+  // NEED TO RESET NAV HTML
+  resetNavHtml();
 };
 
 const runningTimers = [];

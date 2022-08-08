@@ -30,7 +30,7 @@ if (isset($_GET['id'])) {
                         <p class="album-container-info--songs"><?php echo $album->getNumberOfSongs() . ' songs' ?></p>
                     </div>
                 </div>
-                <div class="tracklist-container">
+                <div class="tracklist-container" data-container="tracklist">
                     <ul>
                         <?php 
                             $songIdArray = $album->getSongIds();
@@ -69,9 +69,9 @@ if (isset($_GET['id'])) {
 </script>
                     </ul>
                 </div>
-
-                <nav class="options-menu" data-nav="options-menu">
-                    <div class="options-menu__items" onclick="selectPlaylist(this)">Add to playlist</div>
+                        <!-- ADD HTML TO SHOWSONGOPTIONSMENU. INSERT ADJACENTE HTML. SO CAN GET SONG ID FROM tracklist-conatiner__track-options. -->
+                <nav class="options-menu" data-nav="options-menu" data-song-id="">
+                    <div class="options-menu__items" onclick="selectPlaylist(this)" data-nav="options-item">Add to playlist</div>
                     <div class="options-menu__items">Item 2</div>
                     <div class="options-menu__items">Item 3</div>
                 </nav>
