@@ -69,7 +69,7 @@ if (isset($_GET['id'])) {
 </script>
                     </ul>
                 </div>
-                        <!-- ADD HTML TO SHOWSONGOPTIONSMENU. INSERT ADJACENTE HTML. SO CAN GET SONG ID FROM tracklist-conatiner__track-options. -->
+                        
                 <nav class="options-menu" data-nav="options-menu" data-song-id="">
                     <div class="options-menu__items" onclick="selectPlaylist(this)" data-nav="options-item">Add to playlist</div>
                     <div class="options-menu__items">Item 2</div>

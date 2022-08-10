@@ -220,28 +220,42 @@ const deletePlaylist = async (playlistId) => {
   }
 };
 
-const resetNavHtml = () => {
+const resetNavHtml = (resetPlaylistNavHtml = false) => {
   const nav = document.querySelector('[data-nav="options-menu"]');
   const navHtml = `<div class="options-menu__items" onclick="selectPlaylist(this)" data-nav="options-item">Add to playlist</div>
   <div class="options-menu__items">Item 2</div>
+  <div class="options-menu__items">Item 3</div>`;
+
+  const playlistNavHtml = `<div class="options-menu__items" onclick="selectPlaylist(this)" data-nav="options-item">Add to playlist</div>
+  <div class="options-menu__items" data-playlist-id="<?php echo $playlistId; ?>" onclick="removeSongFromPlaylist(this)" data-nav="options-item">Remove From Playlist</div>
   <div class="options-menu__items">Item 3</div>`;
 
   while (nav.firstChild) {
     nav.removeChild(nav.lastChild);
   }
 
-  nav.insertAdjacentHTML('beforeend', navHtml);
+  if (resetPlaylistNavHtml) {
+    console.log('hello rest playlist is true');
+    nav.insertAdjacentHTML('beforeend', playlistNavHtml);
+  } else {
+    nav.insertAdjacentHTML('beforeend', navHtml);
+  }
 };
 
 const closeSongOptionMenu = (event) => {
+  const menu = document.querySelector('[data-nav="options-menu"]');
   // CHECK FOR CLICK ON SONG OPTION MENU
-  if (event.type === 'click' && event.target.dataset.hasOwnProperty('nav')) {
+  if (
+    event &&
+    event.type === 'click' &&
+    event.target.dataset.hasOwnProperty('nav')
+  ) {
     return;
   }
 
   menu.style.display = 'none';
 
-  resetNavHtml();
+  resetNavHtml(menu.dataset.playlistOptions);
 
   window.removeEventListener('click', closeSongOptionMenu, true);
   window.removeEventListener('scroll', closeSongOptionMenu, true);
@@ -294,7 +308,7 @@ const selectPlaylist = async (element) => {
       newDiv.classList.add('options-menu__items');
       newDiv.dataset.playlistId = `${playlist.id}`;
       newDiv.addEventListener('click', () => {
-        addSongToPlaylist(parentElement);
+        addSongToPlaylist(parentElement.dataset.songId, playlist.id);
         // openPage(`includes/html/playlistContent.php?id=${playlist.id}`);
       });
       parentElement.appendChild(newDiv);
@@ -304,11 +318,47 @@ const selectPlaylist = async (element) => {
   }
 };
 
-const addSongToPlaylist = (songId) => {
-  console.log(songId);
+const addSongToPlaylist = async (songId, playlistId) => {
+  const data = {
+    songId,
+    playlistId,
+  };
 
-  // NEED TO RESET NAV HTML
-  resetNavHtml();
+  try {
+    const sendData = await fetch('includes/ajax/addSongToPlaylist.php', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+
+    // NEED TO RESET NAV HTML
+    resetNavHtml();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const removeSongFromPlaylist = async (element) => {
+  const data = {
+    songId: element.parentNode.dataset.songId,
+    playlistId: element.parentNode.dataset.playlistId,
+  };
+
+  try {
+    const removeSong = await fetch('includes/ajax/removeSongFromPlaylist.php', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+
+    const removeSongJson = await removeSong.text();
+
+    console.log(removeSongJson);
+
+    resetNavHtml(true);
+    closeSongOptionMenu();
+    openPage(`includes/html/playlistContent.php?id=${data.playlistId}`);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const runningTimers = [];

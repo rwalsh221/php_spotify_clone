@@ -52,7 +52,7 @@ if (isset($_GET['id'])) {
                                             <div class='tracklist-container__track-title'>" . $playlistSong->getSongTitle() . "</div>
                                             <div class='tracklist-container__track-artist'>" . $songArtist->getName() ."</div>
                                         </div>
-                                        <div class='tracklist-container__track-options'><ion-icon name='ellipsis-horizontal'></ion-icon></div>
+                                        <button class='tracklist-container__track-options' data-song-id='" . $playlistSong->getSongId() . "'onclick='showSongOptionsMenu(this)'><ion-icon name='ellipsis-horizontal'></ion-icon></button>
                                         <div class='tracklist-container__track-duration'>" . $playlistSong->getDuration() . "</div>
                                     </li>";
 
@@ -71,4 +71,9 @@ if (isset($_GET['id'])) {
 </script>
                     </ul>
                 </div>
+                <nav class="options-menu" data-nav="options-menu" data-playlist-options="true" data-song-id="" data-playlist-id="<?php echo $playlistId; ?>">
+                    <div class="options-menu__items" onclick="selectPlaylist(this)" data-nav="options-item">Add to playlist</div>
+                    <div class="options-menu__items"  onclick="removeSongFromPlaylist(this)" data-nav="options-item">Remove From Playlist</div>
+                    <div class="options-menu__items">Item 3</div>
+                </nav>
                 
