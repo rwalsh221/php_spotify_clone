@@ -361,6 +361,18 @@ const removeSongFromPlaylist = async (element) => {
   }
 };
 
+const logout = async () => {
+  try {
+    const sendLogout = await fetch('includes/ajax/logout.php', {
+      method: 'POST',
+    });
+
+    location.reload();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const runningTimers = [];
 let currentPlaylist = [];
 let shufflePlaylist = [];

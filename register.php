@@ -32,7 +32,7 @@ function getFormFieldValue($name) {
             <div class="form-container">
                 <!-- LOGIN FORM -->
                     <form id="login-form" action="register.php" method="post" data-form="login" class="fade-in">
-                        <h2 class="heading__secondary">Login to your account</h2>
+                        <h2 class="heading__secondary--register">Login to your account</h2>
                         <div>
                             <?php echo $account->getError(Constants::$loginFailed); ?> 
                             <label for="login-username">Username</label>
@@ -52,7 +52,7 @@ function getFormFieldValue($name) {
                     </form>
                 <!-- REGISTER FORM -->
                     <form id="register-form" class="register-form fade-in" action="register.php" method="post" data-form="register">
-                        <h2 class="heading__secondary">Create your account</h2>
+                        <h2 class="heading__secondary--register">Create your account</h2>
                         <div>
                             <?php echo $account->getError(Constants::$userNameLengthError); ?>
                             <?php echo $account->getError(Constants::$usernameTaken); ?>

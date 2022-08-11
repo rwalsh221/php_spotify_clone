@@ -1,6 +1,5 @@
 <?php 
-include __DIR__ . '/includes/config.php';
-
+require("includes/config.php");
 
 // MANUAL LOGOUT
 // session_destroy();
@@ -27,13 +26,13 @@ if(isset($_SESSION['userLoggedIn'])) {
 <body>
     <main class="main">
         <section class="navigation">
-            <?php require('includes/html/navigation.php') ?>
+            <?php require( __dir__ . '/includes/html/navigation.php') ?>
         </section>
         <section data-main-content class="main-content">
-            <?php require('includes/html/albumList.php') ?>
+            <?php require( __dir__ . '/includes/html/userContent.php') ?>
         </section>
         <section class="now-playing-bar-container">
-            <?php require('includes/html/nowPlayingBar.php') ?>
+            <?php require( __dir__ . '/includes/html/nowPlayingBar.php') ?>
         </section>
     </main>
     

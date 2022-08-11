@@ -12,7 +12,6 @@ if (isset($_GET['id'])) {
 
     $album = new Album($dBConnection, $albumId);
     $artist = $album->getArtist();
-    echo $albumId;
     } else {
     // header("Location: index.php");
     echo 'NO ID';
