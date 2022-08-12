@@ -373,6 +373,41 @@ const logout = async () => {
   }
 };
 
+const updateEmail = async () => {
+  const emailValue = document.querySelector('[data-update-user="email"]').value;
+
+  try {
+    const userLoggedIn = await getUserLoggedIn();
+
+    const data = {
+      emailValue,
+      userLoggedIn,
+    };
+
+    // console.log(data);
+
+    const updateEmail = await fetch('includes/ajax/updateEmail.php', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+
+    const updateEmailResponse = await updateEmail.text();
+    console.log(updateEmailResponse);
+    if (updateEmail.ok) {
+      document.querySelector('[data-update-user="email-message"]').textContent =
+        updateEmailResponse;
+    } else {
+      const err = new Error(`${updateEmail.status} ${updateEmail.statusText}`);
+      throw err;
+    }
+  } catch (error) {
+    console.log(updateEmailResponse);
+    document.querySelector('[data-update-user="email-message"]').textContent =
+      'Email Update Failed';
+    console.error(error);
+  }
+};
+
 const runningTimers = [];
 let currentPlaylist = [];
 let shufflePlaylist = [];

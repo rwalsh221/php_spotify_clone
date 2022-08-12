@@ -121,6 +121,14 @@ select:-webkit-autofill:focus {
   background-color: green;
 }
 
+.error-message {
+  color: green;
+  display: block;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0.5rem 0;
+}
+
 /* NOW PLAYING BAR ******************************************* */
 
 /* NOW PLAYING BAR CENTER */
