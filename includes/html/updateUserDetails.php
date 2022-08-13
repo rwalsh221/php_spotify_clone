@@ -28,10 +28,10 @@ if (isset($_GET['userLoggedIn'])) {
     </div>
     <div class="update-user-password">
         <h2 class="heading__secondary">PASSWORD</h2>
-        <input autocomplete="off" type="password" id="current-password" name="current-password" placeholder="Current Password">
-        <input autocomplete="off" type="password" id="update-password" name="update-password" placeholder="New Password">
-        <input autocomplete="off" type="password" id="confirm-update-password" name="confirm-update-password" placeholder="Confirm New Password">
+        <input autocomplete="off" data-update-user="pw-old" type="password" id="current-password" name="current-password" placeholder="Current Password">
+        <input autocomplete="off" data-update-user="pw-new" type="password" id="update-password" name="update-password" placeholder="New Password">
+        <input autocomplete="off" data-update-user="confirm-pw-new" type="password" id="confirm-update-password" name="confirm-update-password" placeholder="Confirm New Password">
         <p class="error-message" data-update-user="password-message"></p>
-        <button class="btn__primary btn__update-user">UPDATE</button>
+        <button class="btn__primary btn__update-user" onclick="updatePassword()">UPDATE</button>
     </div>
 </div>

@@ -12,7 +12,7 @@ if(isset($data) && $data['emailValue'] !== '') {
    
    
     if(!filter_var($userEmail, FILTER_VALIDATE_EMAIL)) {
-        echo 'EMAIL is invalid';
+        echo 'Email is invalid';
         exit();
     }
 

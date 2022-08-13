@@ -408,6 +408,55 @@ const updateEmail = async () => {
   }
 };
 
+const updatePassword = async () => {
+  const oldPasswordValue = document.querySelector(
+    '[data-update-user="pw-old"]'
+  ).value;
+  const newPasswordValue = document.querySelector(
+    '[data-update-user="pw-new"]'
+  ).value;
+  const confirmPasswordValue = document.querySelector(
+    '[data-update-user="confirm-pw-new"]'
+  ).value;
+
+  try {
+    const userLoggedIn = await getUserLoggedIn();
+
+    const data = {
+      oldPasswordValue,
+      newPasswordValue,
+      confirmPasswordValue,
+      userLoggedIn,
+    };
+
+    // console.log(data);
+
+    const updatePassword = await fetch('includes/ajax/updatePassword.php', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+
+    const updatePasswordResponse = await updatePassword.text();
+    console.log(updatePasswordResponse);
+    if (updatePassword.ok) {
+      document.querySelector(
+        '[data-update-user="password-message"]'
+      ).textContent = updatePasswordResponse;
+    } else {
+      const err = new Error(
+        `${updatePassword.status} ${updatePassword.statusText}`
+      );
+      throw err;
+    }
+  } catch (error) {
+    console.log(updatePasswordResponse);
+    document.querySelector(
+      '[data-update-user="password-message"]'
+    ).textContent = 'Password Update Failed';
+    console.error(error);
+  }
+};
+
 const runningTimers = [];
 let currentPlaylist = [];
 let shufflePlaylist = [];
